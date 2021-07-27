@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthenticationModule } from './modules/authentication/authentication.module';
-import { MainModule } from './modules/main/main.module';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { AuthenticationModule } from '../authentication/authentication.module';
+import { MainModule } from '../main/main.module';
+import { NotFoundComponent } from 'src/app/pages/not-found/not-found.component';
 
 const routes: Routes = [
   {
