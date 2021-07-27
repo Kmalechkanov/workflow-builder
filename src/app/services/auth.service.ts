@@ -3,17 +3,18 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { AuthResponse } from '../models/authResponse.model';
+import { AuthResponse } from '../models/auth-response.model';
 import { environment as env } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private loggedIn = new BehaviorSubject<boolean>(false);
+  private loggedIn: boolean = false;
 
   constructor(
     private httpClient: HttpClient,
+    private jwtService: JwtHelperService,
   ) { }
 
   login$(email: string, password: string): Observable<AuthResponse> {
@@ -31,26 +32,25 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     const authenticated = this.checkValidToken();
-    this.loggedIn.next(authenticated);
+    this.loggedIn = authenticated;
     return authenticated;
   }
 
-  getToken() : string | null {
+  getToken(): string | null {
     return localStorage.getItem('token');
   }
 
-  private checkValidToken() {
+  private checkValidToken(): boolean {
     const token = this.getToken();
-    const helper = new JwtHelperService();
-
-    if(token === null || helper.isTokenExpired(token)) {
+    
+    if (token === null || this.jwtService.isTokenExpired(token)) {
       return false;
     }
     return true;
   }
 
-  private saveToken(token: string) {
+  private saveToken(token: string): void {
     localStorage.setItem('token', token);
-    this.loggedIn.next(true);
+    this.loggedIn = true;
   }
 }

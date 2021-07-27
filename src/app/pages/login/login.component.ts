@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
   form: FormGroup;
-  public invalid = false;
+  invalid = false;
   private returnUrl: string;
 
   constructor(
@@ -32,24 +32,21 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.authService.isAuthenticated()) {
-      this.router.navigate([this.returnUrl]);
-    }
   }
 
   onSubmit(): void {
     this.invalid = false;
 
     if (this.form.valid) {
-      const email = this.form.get('email')?.value;
-      const password = this.form.get('password')?.value;
+      const email = this.form.get('email')!.value;
+      const password = this.form.get('password')!.value;
       this.authService.login$(email, password).pipe(take(1))
         .subscribe(
           res => {
           },
           err => {
             this.invalid = true;
-            this.form.reset();
+            this.form.get('password')!.reset(); 
           },
           () => {
             this.router.navigate([this.returnUrl]);

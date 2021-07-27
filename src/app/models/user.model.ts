@@ -1,6 +1,5 @@
-export class User {
-    id!: number;
+import { BaseModel } from "./base-model.model";
+
+export class User extends BaseModel {
     username!: string;
-    created!: Date;
-    lastUpdated!: Date;
 }
