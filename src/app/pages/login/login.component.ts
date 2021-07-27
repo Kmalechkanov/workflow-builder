@@ -43,14 +43,12 @@ export class LoginComponent implements OnInit {
       this.authService.login$(email, password).pipe(take(1))
         .subscribe(
           res => {
+            this.router.navigate([this.returnUrl]);
           },
           err => {
             this.invalid = true;
             this.form.get('password')!.reset(); 
           },
-          () => {
-            this.router.navigate([this.returnUrl]);
-          }
         );
     }
   }
