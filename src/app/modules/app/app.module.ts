@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './component/app.component';
 import { NotFoundComponent } from '../../pages/not-found/not-found.component';
 import { HttpClientModule } from '@angular/common/http';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -20,10 +20,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
     HttpClientModule,
   ],
   providers: [
-    {
-      provide: JwtHelperService,
-      useFactory: () => new JwtHelperService()
-    },
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService,
   ],
   bootstrap: [AppComponent],
 })
