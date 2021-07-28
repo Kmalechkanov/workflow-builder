@@ -11,7 +11,7 @@ export class NonAuthGuardService implements CanLoad {
 
     canLoad(): boolean {
         if (this.authService.isAuthenticated()) {
-            this.router.navigateByUrl('');
+            this.router.navigate([]);
             return false;
         }
         return true;

@@ -11,7 +11,7 @@ export class AuthGuardService implements CanLoad {
 
     canLoad(): boolean {
         if (!this.authService.isAuthenticated()) {
-            this.router.navigateByUrl('auth');
+            this.router.navigate(['auth']);
             return false;
         }
         return true;
