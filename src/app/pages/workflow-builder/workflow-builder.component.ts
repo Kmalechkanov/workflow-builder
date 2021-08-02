@@ -47,10 +47,10 @@ export class WorkflowBuilderComponent implements OnInit {
     console.log(JSON.stringify(this.data))
   }
 
-  private addToTr(obj: FlowTree, pathInput: string, data: Flow) {
+  private addToTr(obj: FlowTree, pathInput: string, data: Flow): void {
     for (var i = 0, path: string[] = pathInput.split('/'), len = path.length; i < len; i++) {
 
-      if(!obj.branches) {
+      if (!obj.branches) {
         obj.branches = [];
       }
       if (!obj.branches!.some(x => x.root == path[i])) {
@@ -63,6 +63,5 @@ export class WorkflowBuilderComponent implements OnInit {
     }
 
     obj.data = data;
-    return obj;
   }
 }
