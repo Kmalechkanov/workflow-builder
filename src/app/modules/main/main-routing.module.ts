@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './component/main.component';
 import { HomeComponent } from 'src/app/pages/home/home.component';
+import { WorkflowBuilderComponent } from 'src/app/pages/workflow-builder/workflow-builder.component';
 
 const routes: Routes = [
   {
@@ -10,6 +11,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
+      { path: 'workflow-builder', component: WorkflowBuilderComponent },
     ],
   },
 ]
