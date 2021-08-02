@@ -1,0 +1,13 @@
+<mat-toolbar color="primary">
+    <a mat-button [routerLink]="['/']">Home</a>
+    <a mat-button [routerLink]="['/workflow-builder']">Builder</a>
+
+    <span class="separate"></span>
+
+    <span>
+        {{ userEmail }} 
+    </span>
+    <button mat-stroked-button>
+        <mat-icon aria-hidden="false" aria-label="Logout" (click)="logout()">exit_to_app</mat-icon>
+    </button>
+</mat-toolbar>
