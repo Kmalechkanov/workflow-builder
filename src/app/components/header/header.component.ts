@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
     this.userEmail = this.userService.getEmail();
   }
 
-  logout() {
+  logout(): void {
     this.authService.logout();
   }
 }
