@@ -5,6 +5,9 @@ import { IntegrationTree } from 'src/app/models/integration-tree.model';
 import { IntegrationService } from 'src/app/services/integration.service';
 import { take } from 'rxjs/operators';
 import { Integration } from 'src/app/models/integration.model';
+import { CdkDrag, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { FlowService } from 'src/app/services/flow.service';
+import { Flow } from 'src/app/models/flow.model';
 
 @Component({
   selector: 'app-workflow-builder',
@@ -17,8 +20,11 @@ export class WorkflowBuilderComponent implements OnInit {
   data!: IntegrationTree;
   dataSource!: ArrayDataSource<IntegrationTree>;
 
+  selected: Flow[] = [];
+
   constructor(
     private integrationService: IntegrationService,
+    private flowService: FlowService,
   ) { }
 
   ngOnInit(): void {
@@ -32,6 +38,26 @@ export class WorkflowBuilderComponent implements OnInit {
         this.dataSource;
       }
     );
+  }
+
+  drop(event: CdkDragDrop<Flow[]>) {
+    if (event.previousContainer != event.container) {
+      console.log(event.item.data);
+
+      this.flowService.get(event.item.data.id).pipe(take(1)).subscribe(
+        res => {
+          this.selected.push(res);
+        }
+      );
+    }
+  }
+
+  evenPredicate(item: CdkDrag<Integration>) {
+    return item.data.name != 'Sleep';
+  }
+
+  noReturnPredicate() {
+    return false;
   }
 
   hasChild(_: number, node: IntegrationTree): boolean {

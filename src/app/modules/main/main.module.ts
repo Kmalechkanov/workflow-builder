@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CdkTreeModule } from '@angular/cdk/tree';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { CdkTreeModule } from '@angular/cdk/tree';
     MatIconModule,
     MatSidenavModule,
     CdkTreeModule,
+    DragDropModule,
   ],
   exports: [
   ],

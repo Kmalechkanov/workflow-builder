@@ -5,5 +5,4 @@ export class Integration extends BaseModel {
     name!: string;
     displayName?: string;
     description?: string;
-
 }
