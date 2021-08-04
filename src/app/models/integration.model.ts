@@ -1,6 +1,6 @@
 import { BaseModel } from "./base-model.model";
 
-export class Flow extends BaseModel {
+export class Integration extends BaseModel {
     path!: string;
     name!: string;
     displayName?: string;
