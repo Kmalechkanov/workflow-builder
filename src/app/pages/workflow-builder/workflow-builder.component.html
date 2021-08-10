@@ -43,14 +43,7 @@
         <div id="selected" cdkDropList [cdkDropListData]="selected" cdkDropListConnectedTo="all" class="selected-list"
             (cdkDropListDropped)="drop($event)" [cdkDropListEnterPredicate]="evenPredicate">
             <div class="example-box" *ngFor="let flow of selected" cdkDrag [cdkDragData]="flow">
-                <div stlye="border: 1px solid black;">
-                    Name {{flow.name}}
-                    Id {{flow.id}}
-                    Path {{flow.path}}
-                    <div *ngFor="let variable of flow.process.variables">
-                       -> Name {{variable.name}} | Required {{variable.required}}
-                    </div>
-                </div>
+                <app-flow [data]="flow"></app-flow>
             </div>
         </div>
         <button type="button" mat-button (click)="drawer.toggle()">

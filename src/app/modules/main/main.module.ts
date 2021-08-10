@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from 'src/app/pages/home/home.component';
 import { MainComponent } from './component/main.component';
 import { MainRoutingModule } from './main-routing.module';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from 'src/app/interceptors/token.interceptor';
 import { WorkflowBuilderComponent } from 'src/app/pages/workflow-builder/workflow-builder.component';
 import { HeaderComponent } from '../../components/header/header.component';
@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { FlowComponent } from 'src/app/components/flow/flow.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     HomeComponent,
     WorkflowBuilderComponent,
     HeaderComponent,
+    FlowComponent,
   ],
   imports: [
     CommonModule,
@@ -30,6 +32,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatSidenavModule,
     CdkTreeModule,
     DragDropModule,
+    HttpClientModule,
   ],
   exports: [
   ],

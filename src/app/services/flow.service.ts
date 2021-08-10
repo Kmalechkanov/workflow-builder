@@ -13,6 +13,6 @@ export class FlowService {
     ) { }
 
     get(id: number): Observable<Flow> {
-        return this.httpClient.get<Flow>(env.api + '/640/flows/' + id);
+        return this.httpClient.get<Flow>(env.api + '/440/flows/' + id);
     }
 }

@@ -5,7 +5,7 @@ import { IntegrationTree } from 'src/app/models/integration-tree.model';
 import { IntegrationService } from 'src/app/services/integration.service';
 import { take } from 'rxjs/operators';
 import { Integration } from 'src/app/models/integration.model';
-import { CdkDrag, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop } from '@angular/cdk/drag-drop';
 import { FlowService } from 'src/app/services/flow.service';
 import { Flow } from 'src/app/models/flow.model';
 
