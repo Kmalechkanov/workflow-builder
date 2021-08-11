@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from 'src/app/pages/home/home.component';
 import { MainComponent } from './component/main.component';
 import { MainRoutingModule } from './main-routing.module';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from 'src/app/interceptors/token.interceptor';
 import { WorkflowBuilderComponent } from 'src/app/pages/workflow-builder/workflow-builder.component';
 import { HeaderComponent } from '../../components/header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -32,12 +30,8 @@ import { FlowComponent } from 'src/app/components/flow/flow.component';
     MatSidenavModule,
     CdkTreeModule,
     DragDropModule,
-    HttpClientModule,
   ],
   exports: [
-  ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
 })
 export class MainModule { }
