@@ -1,8 +1,22 @@
-<div stlye="border: 1px solid black;">
-    Name {{data.name}}
-    Id {{data.id}}
-    Path {{data.path}}
-    <div *ngFor="let variable of data.process.variables">
-        -> Name {{variable.name}} | Required {{variable.required}}
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <p>{{data.name}}</p>
+    <div class="step-in" *ngFor="let variable of data.process.variables">
+        <div *ngIf="variable.isInput">
+            <mat-form-field appearance="fill">
+                <mat-label>{{variable.meta.displayName}}</mat-label>
+                <!-- [type]="variable.schema.type" -->
+                <input matInput placeholder="Placeholder" 
+                    [formControlName]="variable.name">
+                <mat-hint *ngIf="variable.meta.description">{{variable.meta.description}}</mat-hint>
+            </mat-form-field>
+        </div>
+        <div *ngIf="variable.isOutput">
+            <p>
+                {{variable.meta.displayName}}: idk
+            </p>
+        </div>
+        <!-- <label for="variable.name">{{variable.meta.displayName}}</label>
+        <input [type]="variable.schema.type" [formControlName]="variable.name"> -->
     </div>
-</div>
+    <button mat-raised-button color="primary" [title]="data.meta.info">{{data.meta.type}}</button>
+</form>

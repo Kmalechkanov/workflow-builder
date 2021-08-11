@@ -12,6 +12,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FlowComponent } from 'src/app/components/flow/flow.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,8 @@ import { FlowComponent } from 'src/app/components/flow/flow.component';
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     MainRoutingModule,
     MatToolbarModule,
     MatButtonModule,
@@ -30,6 +35,8 @@ import { FlowComponent } from 'src/app/components/flow/flow.component';
     MatSidenavModule,
     CdkTreeModule,
     DragDropModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   exports: [
   ],

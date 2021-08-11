@@ -1,12 +1,18 @@
 .container {
-    height: 700px;
+    height: 95vh;
 }
 
 .sidenav-content {
-    display: flex;
     height: 100%;
-    align-items: center;
-    justify-content: center;
+    background-color: rgb(245, 244, 244);
+    padding: 45px;
+    box-sizing: border-box;
+}
+
+.flex {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
 }
 
 .sidenav {
@@ -32,7 +38,9 @@
 }
 
 .selected-list {
-    background-color:red;
+    border: 2px dashed #dfcdff;
+    padding: 15px;
     min-width: 50px;
     min-height: 50px;
+    border-radius: 10px;
 }
