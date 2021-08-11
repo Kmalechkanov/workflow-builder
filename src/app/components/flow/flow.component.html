@@ -1,12 +1,18 @@
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-    <p>{{data.name}}</p>
+    <h2>{{data.name}}<span> - {{data.meta.info}}</span></h2>
     <div class="step-in" *ngFor="let variable of data.process.variables">
         <div *ngIf="variable.isInput">
             <mat-form-field appearance="fill">
                 <mat-label>{{variable.meta.displayName}}</mat-label>
-                <!-- [type]="variable.schema.type" -->
-                <input matInput placeholder="Placeholder" 
-                    [formControlName]="variable.name">
+
+                <div *ngIf="variable.schema.type === 'number'; else textType">
+                    <input matInput placeholder="Placeholder" type="number" [formControlName]="variable.name">
+
+                </div>
+                <ng-template #textType>
+                    <input matInput placeholder="Placeholder" type="text" [formControlName]="variable.name">
+                </ng-template>
+
                 <mat-hint *ngIf="variable.meta.description">{{variable.meta.description}}</mat-hint>
             </mat-form-field>
         </div>
@@ -15,8 +21,7 @@
                 {{variable.meta.displayName}}: idk
             </p>
         </div>
-        <!-- <label for="variable.name">{{variable.meta.displayName}}</label>
-        <input [type]="variable.schema.type" [formControlName]="variable.name"> -->
     </div>
+    <input type="number" hidden [value]="data.id">
     <button mat-raised-button color="primary" [title]="data.meta.info">{{data.meta.type}}</button>
 </form>

@@ -9,3 +9,11 @@ form {
     padding: 10px;
     margin: 10px 0;
 }
+
+span {
+    opacity: 0.1;
+}
+
+form:hover span {
+    opacity: 0.5;
+}
