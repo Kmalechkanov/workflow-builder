@@ -1,0 +1,8 @@
+<div stlye="border: 1px solid black;">
+    Name {{data.name}}
+    Id {{data.id}}
+    Path {{data.path}}
+    <div *ngFor="let variable of data.process.variables">
+        -> Name {{variable.name}} | Required {{variable.required}}
+    </div>
+</div>

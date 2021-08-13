@@ -1,28 +1,36 @@
 <mat-drawer-container class="container">
-    <mat-drawer #drawer class="sidenav" [style.width]="toggleResize ? '50%' : ''" mode="side" position="end" layout="vertical">
+    <mat-drawer #drawer class="sidenav" [style.width]="toggleResize ? '50%' : ''" mode="side" position="end"
+        layout="vertical">
 
-        <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
-            <cdk-nested-tree-node *cdkTreeNodeDef="let node" class="example-tree-node">
-                <button mat-icon-button disabled>
-                    <mat-icon class="mat-icon-rtl-mirror">
-                        settings
-                    </mat-icon>
-                </button>
-                {{node.root}}
-            </cdk-nested-tree-node>
+        <div id="all" cdkDropList cdkDropListConnectedTo="selected" (cdkDropListDropped)="drop($event)"
+            [cdkDropListEnterPredicate]="noReturnPredicate">
 
-            <cdk-nested-tree-node *cdkTreeNodeDef="let node; when: hasChild" class="example-tree-node">
-                <button mat-icon-button [attr.aria-label]="'Toggle ' + node.name" cdkTreeNodeToggle>
-                    <mat-icon class="mat-icon-rtl-mirror">
-                        {{treeControl.isExpanded(node) ? 'folder' : 'folder_open'}}
-                    </mat-icon>
-                </button>
-                {{node.root}}
-                <div [class.example-tree-invisible]="!treeControl.isExpanded(node)">
-                    <ng-container cdkTreeNodeOutlet></ng-container>
-                </div>
-            </cdk-nested-tree-node>
-        </cdk-tree>
+            <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
+
+                <cdk-nested-tree-node *cdkTreeNodeDef="let node" class="example-tree-node" cdkDrag
+                    [cdkDragData]="node.data!">
+                    <button mat-icon-button disabled>
+                        <mat-icon class="mat-icon-rtl-mirror">
+                            settings
+                        </mat-icon>
+                    </button>
+                    {{node.root}}
+                </cdk-nested-tree-node>
+
+                <cdk-nested-tree-node *cdkTreeNodeDef="let node; when: hasChild" class="example-tree-node">
+                    <button mat-icon-button [attr.aria-label]="'Toggle ' + node.name" cdkTreeNodeToggle>
+                        <mat-icon class="mat-icon-rtl-mirror">
+                            {{treeControl.isExpanded(node) ? 'folder' : 'folder_open'}}
+                        </mat-icon>
+                    </button>
+                    {{node.root}}
+                    <div [class.example-tree-invisible]="!treeControl.isExpanded(node)">
+                        <ng-container cdkTreeNodeOutlet></ng-container>
+                    </div>
+                </cdk-nested-tree-node>
+            </cdk-tree>
+
+        </div>
 
         <p>Toggle Auto-resizing</p>
         <button (click)="toggleResize = !toggleResize" mat-raised-button>
@@ -32,6 +40,12 @@
     </mat-drawer>
 
     <div class="sidenav-content">
+        <div id="selected" cdkDropList [cdkDropListData]="selected" cdkDropListConnectedTo="all" class="selected-list"
+            (cdkDropListDropped)="drop($event)" [cdkDropListEnterPredicate]="evenPredicate">
+            <div class="example-box" *ngFor="let flow of selected" cdkDrag [cdkDragData]="flow">
+                <app-flow [data]="flow"></app-flow>
+            </div>
+        </div>
         <button type="button" mat-button (click)="drawer.toggle()">
             Toggle sidenav
         </button>
