@@ -1,0 +1,38 @@
+.container {
+    height: 700px;
+}
+
+.sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidenav {
+    padding: 20px;
+}
+
+.example-tree-invisible {
+    display: none;
+}
+
+.example-tree ul,
+.example-tree li {
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style-type: none;
+}
+.example-tree-node {
+    display: block;
+}
+
+.example-tree-node .example-tree-node {
+    padding-left: 20px;
+}
+
+.selected-list {
+    background-color:red;
+    min-width: 50px;
+    min-height: 50px;
+}
