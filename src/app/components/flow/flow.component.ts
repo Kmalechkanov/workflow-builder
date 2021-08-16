@@ -1,7 +1,7 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Flow } from 'src/app/models/flow.model';
-import { FormControlService } from 'src/app/services/form-control.service';
+import { FormControl } from 'src/app/models/form-control.model';
 
 @Component({
   selector: 'app-flow',
@@ -11,15 +11,15 @@ import { FormControlService } from 'src/app/services/form-control.service';
 export class FlowComponent implements OnInit {
   @Input() data!: Flow;
 
-  public myForm: FormGroup = this.fb.group({});
+  myForm: FormGroup = this.fb.group({});
+  private formControl: FormControl = new FormControl(); 
 
   constructor(
     private fb: FormBuilder,
-    private formControlService: FormControlService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.myForm = this.formControlService.toFormGroup(this.data);
+    this.myForm = this.formControl.toFormGroup(this.data);
   }
 
   onSubmit() {

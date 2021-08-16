@@ -13,8 +13,6 @@ export class IntegrationService {
     ) { }
 
     getAll(): Observable<Integration[]> {
-        return this.httpClient.get<Integration[]>(env.api + '/integrations');
-        // TODO UPDATE THIS AFTER PULL REQUEST APROVAL
-        // return this.httpClient.get<Flow[]>(env.api + '/640/integrations');
+        return this.httpClient.get<Integration[]>(env.api + '/640/integrations');
     }
 }

@@ -1,12 +1,8 @@
-import { Injectable } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Flow } from '../models/flow.model';
+import { FormControl as FC, FormGroup, Validators } from '@angular/forms';
+import { Flow } from './flow.model';
 import { regexConstants as regex } from '../constants/regex.constants';
 
-@Injectable({
-    providedIn: 'root',
-})
-export class FormControlService {
+export class FormControl {
     constructor() { }
 
     toFormGroup(flow: Flow): FormGroup {
@@ -22,7 +18,7 @@ export class FormControlService {
                 validators.push(Validators.pattern(regex.array.ofNumbers));
             }
  
-            group[variable.name] = new FormControl('', Validators.compose(validators));
+            group[variable.name] = new FC('', Validators.compose(validators));
         });
         return new FormGroup(group);
     }
