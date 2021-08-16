@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ArrayDataSource } from '@angular/cdk/collections';
-import { NestedTreeControl } from '@angular/cdk/tree';
 import { IntegrationTree } from 'src/app/models/integration-tree.model';
 import { IntegrationService } from 'src/app/services/integration.service';
 import { take } from 'rxjs/operators';
 import { Integration } from 'src/app/models/integration.model';
+import { IntegrationServiceModel } from 'src/app/models/integration-service.model';
 
 @Component({
   selector: 'app-workflow-builder',
@@ -13,53 +12,79 @@ import { Integration } from 'src/app/models/integration.model';
 })
 export class WorkflowBuilderComponent implements OnInit {
   toggleResize = false;
-  treeControl!: NestedTreeControl<IntegrationTree>;
   data!: IntegrationTree;
-  dataSource!: ArrayDataSource<IntegrationTree>;
+  visualizedData!: IntegrationTree;
+  navigation!: [string[]];
 
   constructor(
     private integrationService: IntegrationService,
   ) { }
 
   ngOnInit(): void {
-    this.treeControl = new NestedTreeControl<IntegrationTree>(node => node.branches);
+    this.navigation = [[]];
     this.data = new IntegrationTree;
-    this.data.root = '';
+    this.data.name = '';
     this.integrationService.getAll().pipe(take(1)).subscribe(
       res => {
         this.integrationsToData(res);
-        this.dataSource = new ArrayDataSource([this.data]);
-        this.dataSource;
+        this.visualizedData = this.data;
       }
     );
   }
 
+  openFolderByPath(path: string[]): void {
+    var tempData = this.data;
+    this.navigation = [[]];
+    for (var route of path) {
+      tempData = tempData.folders!.find(f => f.name == route)!;
+      let tempNav = Object.assign([], this.navigation[this.navigation.length - 1]);
+      tempNav.push(route);
+      this.navigation.push(tempNav);
+    }
+    this.visualizedData = tempData;
+  }
+
+  openFolder(name: string): void {
+    let tempNav = Object.assign([], this.navigation[this.navigation.length - 1]);
+    tempNav.push(name);
+    this.navigation.push(tempNav);
+
+    this.visualizedData = this.visualizedData.folders!.find(f => f.name == name)!;
+  }
+
   hasChild(_: number, node: IntegrationTree): boolean {
-    return !!node.branches && node.branches.length > 0;
+    return !!node.folders && node.folders.length > 0 || !!node.services && node.services.length > 0;
   }
 
   private integrationsToData(integrations: Integration[]): void {
     integrations.forEach(integration => {
-
       this.addToTr(this.data, integration.path.slice(1), integration)
     });
   }
 
   private addToTr(obj: IntegrationTree, pathInput: string, data: Integration): void {
-    for (var i = 0, path: string[] = pathInput.split('/'), len = path.length; i < len; i++) {
+    const path = pathInput.split('/');
+    for (var i = 0; i < path.length - 1; i++) {
 
-      if (!obj.branches) {
-        obj.branches = [];
+      if (!obj.folders) {
+        obj.folders = [];
       }
-      if (!obj.branches!.some(x => x.root == path[i])) {
+      if (!obj.folders!.some(x => x.name == path[i])) {
         let tempIntegrationTreee = new IntegrationTree();
-        tempIntegrationTreee.root = path[i];
-        obj.branches!.push(tempIntegrationTreee);
+        tempIntegrationTreee.name = path[i];
+        obj.folders!.push(tempIntegrationTreee);
       }
-      let index = obj.branches!.findIndex(x => x.root == path[i]);
-      obj = obj.branches![index];
+      let index = obj.folders!.findIndex(x => x.name == path[i]);
+      obj = obj.folders![index];
     }
 
-    obj.data = data;
+    if (!obj.services) {
+      obj.services = [];
+    }
+
+    let tempIntegrationService = new IntegrationServiceModel();
+    tempIntegrationService.data = data;
+    tempIntegrationService.name = path[path.length - 1];
+    obj.services.push(tempIntegrationService);
   }
 }

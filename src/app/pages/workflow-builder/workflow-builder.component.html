@@ -1,32 +1,40 @@
 <mat-drawer-container class="container">
-    <mat-drawer #drawer class="sidenav" [style.width]="toggleResize ? '50%' : ''" mode="side" position="end" layout="vertical">
+    <mat-drawer #drawer class="sidenav" opened="true" [style.width]="toggleResize ? '50%' : ''" mode="side"
+        position="end" layout="vertical">
 
-        <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
-            <cdk-nested-tree-node *cdkTreeNodeDef="let node" class="example-tree-node">
-                <button mat-icon-button disabled>
-                    <mat-icon class="mat-icon-rtl-mirror">
+        <div *ngIf="navigation" class="flex">
+            <ng-container *ngFor="let routes of navigation">
+                <a class="route" (click)="openFolderByPath(routes)">
+                    /{{
+                        routes[routes.length-1] == undefined ? "Root" : routes[routes.length-1]
+                    }}
+                </a>
+            </ng-container>
+        </div>
+
+        <div *ngIf="visualizedData">
+            <div *ngFor="let folder of visualizedData.folders">
+                <button mat-button class="no-style" (click)="openFolder(folder.name)">
+                    <mat-icon mat-icon-button>folder</mat-icon>
+                    {{folder.name}}
+                </button>
+            </div>
+        </div>
+
+        <div *ngIf="visualizedData" class="services">
+            <div *ngFor="let service of visualizedData.services">
+                <button mat-button>
+                    <mat-icon mat-icon-button>
                         settings
                     </mat-icon>
+                    {{service.name}}
                 </button>
-                {{node.root}}
-            </cdk-nested-tree-node>
-
-            <cdk-nested-tree-node *cdkTreeNodeDef="let node; when: hasChild" class="example-tree-node">
-                <button mat-icon-button [attr.aria-label]="'Toggle ' + node.name" cdkTreeNodeToggle>
-                    <mat-icon class="mat-icon-rtl-mirror">
-                        {{treeControl.isExpanded(node) ? 'folder' : 'folder_open'}}
-                    </mat-icon>
-                </button>
-                {{node.root}}
-                <div [class.example-tree-invisible]="!treeControl.isExpanded(node)">
-                    <ng-container cdkTreeNodeOutlet></ng-container>
-                </div>
-            </cdk-nested-tree-node>
-        </cdk-tree>
+            </div>
+        </div>
 
         <p>Toggle Auto-resizing</p>
-        <button (click)="toggleResize = !toggleResize" mat-raised-button>
-            {{toggleResize ? 'Enable' : 'Disable' }}
+        <button mat-raised-button (click)="toggleResize = !toggleResize">
+            {{ toggleResize ? 'Enable' : 'Disable' }}
         </button>
 
     </mat-drawer>

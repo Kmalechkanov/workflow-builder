@@ -30,3 +30,20 @@
 .example-tree-node .example-tree-node {
     padding-left: 20px;
 }
+
+.flex {
+    display: flex;
+}
+
+.route {
+    background-color: none;
+}
+
+.route:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.services {
+    color: gray;
+}

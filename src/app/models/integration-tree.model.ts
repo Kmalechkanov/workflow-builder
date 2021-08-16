@@ -1,8 +1,7 @@
-import { Integration } from "./integration.model";
+import { IntegrationServiceModel as IntegrationService } from "./integration-service.model";
 
 export class IntegrationTree {
-    root!: string;
-    data?: Integration | null;
+    name!: string;
     folders?: IntegrationTree[];
-    services?: IntegrationTree[];
+    services?: IntegrationService[];
 }
