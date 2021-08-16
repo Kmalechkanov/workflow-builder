@@ -3,16 +3,23 @@
     <div class="step-in" *ngFor="let variable of data.process.variables">
         <div *ngIf="variable.isInput">
             <mat-form-field appearance="fill">
-                <mat-label>{{variable.meta.displayName}}</mat-label>
+                <mat-label>
+                    {{variable.meta.displayName}}
+                </mat-label>
 
-                <div *ngIf="variable.schema.type === 'number'; else textType">
-                    <input matInput placeholder="Placeholder" type="number" [formControlName]="variable.name">
-
+                <div [ngSwitch]="variable.schema.type">
+                    <div *ngSwitchCase="'number'">
+                        <input matInput placeholder="Placeholder" type="number" [formControlName]="variable.name">
+                    </div>
+                    <div *ngSwitchCase="'array'">
+                        <input matInput placeholder="Placeholder" type="text" [formControlName]="variable.name">
+                    </div>
+                    <div *ngSwitchDefault>
+                        <!-- any -->
+                        <input matInput placeholder="Placeholder" type="text" [formControlName]="variable.name">
+                    </div>
                 </div>
-                <ng-template #textType>
-                    <input matInput placeholder="Placeholder" type="text" [formControlName]="variable.name">
-                </ng-template>
-
+               
                 <mat-hint *ngIf="variable.meta.description">{{variable.meta.description}}</mat-hint>
             </mat-form-field>
         </div>
@@ -23,5 +30,5 @@
         </div>
     </div>
     <input type="number" hidden [value]="data.id">
-    <button mat-raised-button color="primary" [title]="data.meta.info">{{data.meta.type}}</button>
+    <button mat-raised-button color="primary" [title]="data.meta.info">Action</button>
 </form>
