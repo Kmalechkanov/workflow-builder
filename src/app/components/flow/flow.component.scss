@@ -1,5 +1,5 @@
 .step-in {
-    padding-left: 10px;
+    padding-left: 30px;
 }
 
 form {
@@ -16,4 +16,13 @@ span {
 
 form:hover span {
     opacity: 0.5;
+}
+
+.fixed-width {
+    width: 300px;
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
 }

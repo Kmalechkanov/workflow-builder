@@ -26,6 +26,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { SelectInputComponent } from 'src/app/components/dynamic-input/select-input/select-input.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { InputVariablesPipe } from 'src/app/pipes/input-variables.pipe';
+import { OutputVariablesPipe } from 'src/app/pipes/output-variables.pipe';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     NumberInputComponent,
     TextInputComponent,
     SelectInputComponent,
+    InputVariablesPipe,
+    OutputVariablesPipe,
   ],
   imports: [
     CommonModule,
