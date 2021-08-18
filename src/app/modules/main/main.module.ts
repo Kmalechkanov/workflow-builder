@@ -15,6 +15,17 @@ import { FlowComponent } from 'src/app/components/flow/flow.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { NgxdModule } from '@ngxd/core';
+import { DynamicInputWrapperComponent } from 'src/app/components/dynamic-input/dynamic-input-wrapper/dynamic-input-wrapper.component';
+import { ArrayInputComponent } from 'src/app/components/dynamic-input/array-input/array-input.component';
+import { BooleanInputComponent } from 'src/app/components/dynamic-input/boolean-input/boolean-input.component';
+import { IntegerInputComponent } from 'src/app/components/dynamic-input/integer-input/integer-input.component';
+import { NumberInputComponent } from 'src/app/components/dynamic-input/number-input/number-input.component';
+import { TextInputComponent } from 'src/app/components/dynamic-input/text-input/text-input.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { SelectInputComponent } from 'src/app/components/dynamic-input/select-input/select-input.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -23,6 +34,13 @@ import { MatInputModule } from '@angular/material/input';
     WorkflowBuilderComponent,
     HeaderComponent,
     FlowComponent,
+    DynamicInputWrapperComponent,
+    ArrayInputComponent,
+    BooleanInputComponent,
+    IntegerInputComponent,
+    NumberInputComponent,
+    TextInputComponent,
+    SelectInputComponent,
   ],
   imports: [
     CommonModule,
@@ -36,7 +54,11 @@ import { MatInputModule } from '@angular/material/input';
     CdkTreeModule,
     DragDropModule,
     MatFormFieldModule,
+    NgxdModule,
     MatInputModule,
+    MatTooltipModule,
+    MatSelectModule, 
+    MatCheckboxModule,
   ],
   exports: [
   ],

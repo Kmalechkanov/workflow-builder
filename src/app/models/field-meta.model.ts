@@ -1,4 +1,4 @@
 export class FieldMeta {
-    displayName!: string;
+    displayName?: string;
     description?: string;
 }

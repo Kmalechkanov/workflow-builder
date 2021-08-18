@@ -2,30 +2,12 @@
     <h2>{{data.name}}<span> - {{data.meta.info}}</span></h2>
     <div class="step-in" *ngFor="let variable of data.process.variables">
         <div *ngIf="variable.isInput">
-            <mat-form-field appearance="fill">
-                <mat-label>
-                    {{variable.meta.displayName}}
-                </mat-label>
-
-                <div [ngSwitch]="variable.schema.type">
-                    <div *ngSwitchCase="'number'">
-                        <input matInput placeholder="Placeholder" type="number" [formControlName]="variable.name">
-                    </div>
-                    <div *ngSwitchCase="'array'">
-                        <input matInput placeholder="Placeholder" type="text" [formControlName]="variable.name">
-                    </div>
-                    <div *ngSwitchDefault>
-                        <!-- any -->
-                        <input matInput placeholder="Placeholder" type="text" [formControlName]="variable.name">
-                    </div>
-                </div>
-               
-                <mat-hint *ngIf="variable.meta.description">{{variable.meta.description}}</mat-hint>
-            </mat-form-field>
+            <app-dynamic-input-wrapper [variable]="variable" [parentForm]="myForm">
+            </app-dynamic-input-wrapper>
         </div>
         <div *ngIf="variable.isOutput">
             <p>
-                {{variable.meta.displayName}}: idk
+                Output {{variable.meta.displayName ? variable.meta.displayName : this.variable.name}}
             </p>
         </div>
     </div>

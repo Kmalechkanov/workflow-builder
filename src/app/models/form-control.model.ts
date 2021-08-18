@@ -7,9 +7,11 @@ export class FormControl {
 
     toFormGroup(flow: Flow): FormGroup {
         const group: any = {};
+        let value: any;
 
         flow.process.variables.filter(x => x.isInput).forEach(variable => {
             let validators = [];
+            value = '';
 
             if (variable.required){
                 validators.push(Validators.required);
@@ -17,8 +19,11 @@ export class FormControl {
             if (variable.schema.type == 'array') {
                 validators.push(Validators.pattern(regex.array.ofNumbers));
             }
+            else if(variable.schema.type == 'boolean') {
+                value = false;
+            }
  
-            group[variable.name] = new FC('', Validators.compose(validators));
+            group[variable.name] = new FC(value, Validators.compose(validators));
         });
         return new FormGroup(group);
     }
