@@ -1,0 +1,9 @@
+<mat-form-field appearance="fill">
+    <mat-label>
+        {{variable.meta.displayName ? variable.meta.displayName : this.variable.name}}
+    </mat-label>
+
+    <div [formGroup]="parentForm">
+        <input matInput placeholder="Placeholder" type="nubmer" [formControlName]="variable.name">
+    </div>
+</mat-form-field>

@@ -1,4 +1,4 @@
-<mat-drawer-container class="container">
+<mat-drawer-container class="container" autosize>
     <mat-drawer #drawer class="sidenav" [style.width]="toggleResize ? '50%' : ''" mode="side" position="end"
         layout="vertical">
 
@@ -40,15 +40,21 @@
     </mat-drawer>
 
     <div class="sidenav-content">
-        <div id="selected" cdkDropList [cdkDropListData]="selected" cdkDropListConnectedTo="all" class="selected-list"
-            (cdkDropListDropped)="drop($event)" [cdkDropListEnterPredicate]="evenPredicate">
-            <div class="example-box" *ngFor="let flow of selected" cdkDrag [cdkDragData]="flow">
+        <div class="flex">
+            <h4>
+                Workflow
+            </h4>
+            <button type="button" mat-button (click)="drawer.toggle()">
+                Toggle sidenav
+            </button>
+        </div>
+
+        <div id="selected" cdkDropList [cdkDropListData]="selected" class="selected-list"
+            (cdkDropListDropped)="drop($event)">
+            <div class="example-box" *ngFor="let flow of selected">
                 <app-flow [data]="flow"></app-flow>
             </div>
         </div>
-        <button type="button" mat-button (click)="drawer.toggle()">
-            Toggle sidenav
-        </button>
     </div>
 
 </mat-drawer-container>

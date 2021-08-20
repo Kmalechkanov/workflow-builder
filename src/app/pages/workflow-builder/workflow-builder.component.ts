@@ -42,7 +42,6 @@ export class WorkflowBuilderComponent implements OnInit {
 
   drop(event: CdkDragDrop<Flow[]>) {
     if (event.previousContainer != event.container) {
-      console.log(event.item.data);
 
       this.flowService.get(event.item.data.id).pipe(take(1)).subscribe(
         res => {
@@ -50,10 +49,6 @@ export class WorkflowBuilderComponent implements OnInit {
         }
       );
     }
-  }
-
-  evenPredicate(item: CdkDrag<Integration>) {
-    return item.data.name != 'Sleep';
   }
 
   noReturnPredicate() {

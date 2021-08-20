@@ -1,7 +1,10 @@
+import { FlowMeta } from "./flow-meta.model";
+import { Process } from "./process.model";
+
 export class Flow {
     id!: number;
     name!: string;
     path!: string;
-    process!: any;
-    meta!: object;
+    process!: Process;
+    meta!: FlowMeta;
 }

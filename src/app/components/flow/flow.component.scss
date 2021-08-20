@@ -1,0 +1,28 @@
+.step-in {
+    padding-left: 30px;
+}
+
+form {
+    padding-bottom: 15px;
+    background: #dfcdff;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+span {
+    opacity: 0.1;
+}
+
+form:hover span {
+    opacity: 0.5;
+}
+
+.fixed-width {
+    width: 300px;
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+}
