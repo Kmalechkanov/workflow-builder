@@ -50,7 +50,7 @@
         </div>
 
         <div id="selected" cdkDropList [cdkDropListData]="selected" class="selected-list"
-            (cdkDropListDropped)="drop($event)" [cdkDropListEnterPredicate]="evenPredicate">
+            (cdkDropListDropped)="drop($event)">
             <div class="example-box" *ngFor="let flow of selected">
                 <app-flow [data]="flow"></app-flow>
             </div>

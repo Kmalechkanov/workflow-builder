@@ -28,6 +28,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { InputVariablesPipe } from 'src/app/pipes/input-variables.pipe';
 import { OutputVariablesPipe } from 'src/app/pipes/output-variables.pipe';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { TextSuggestionInputComponent } from 'src/app/components/dynamic-input/text-suggestion-input/text-suggestion-input.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { OutputVariablesPipe } from 'src/app/pipes/output-variables.pipe';
     IntegerInputComponent,
     NumberInputComponent,
     TextInputComponent,
+    TextSuggestionInputComponent,
     SelectInputComponent,
     InputVariablesPipe,
     OutputVariablesPipe,
@@ -61,8 +64,9 @@ import { OutputVariablesPipe } from 'src/app/pipes/output-variables.pipe';
     NgxdModule,
     MatInputModule,
     MatTooltipModule,
-    MatSelectModule, 
+    MatSelectModule,
     MatCheckboxModule,
+    MatAutocompleteModule,
   ],
   exports: [
   ],

@@ -1,0 +1,15 @@
+<mat-form-field appearance="fill">
+    <mat-label>
+        {{variable.meta.displayName ? variable.meta.displayName : this.variable.name}}
+    </mat-label>
+
+    <div [formGroup]="parentForm">
+        <input matInput placeholder="Placeholder" type="text" [matAutocomplete]="auto"
+            [formControlName]="variable.name">
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let suggestion of filteredOptions! | async" [value]="suggestion">
+                {{suggestion}}
+            </mat-option>
+        </mat-autocomplete>
+    </div>
+</mat-form-field>

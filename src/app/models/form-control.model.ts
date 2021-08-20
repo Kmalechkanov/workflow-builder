@@ -13,16 +13,16 @@ export class FormControl {
             let validators = [];
             value = '';
 
-            if (variable.required){
+            if (variable.required) {
                 validators.push(Validators.required);
             }
             if (variable.schema.type == 'array') {
                 validators.push(Validators.pattern(regex.array.ofNumbers));
             }
-            else if(variable.schema.type == 'boolean') {
+            else if (variable.schema.type == 'boolean') {
                 value = false;
             }
- 
+
             group[variable.name] = new FC(value, Validators.compose(validators));
         });
         return new FormGroup(group);
