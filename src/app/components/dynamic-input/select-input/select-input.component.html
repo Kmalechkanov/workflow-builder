@@ -1,0 +1,10 @@
+<mat-form-field appearance="fill">
+    <mat-label>{{variable.meta.displayName ? variable.meta.displayName : this.variable.name}}</mat-label>
+    <div [formGroup]="parentForm">
+        <mat-select [formControlName]="variable.name">
+            <mat-option *ngFor="let value of variable.schema.enum" [value]="value">
+                {{value}}
+            </mat-option>
+        </mat-select>
+    </div>
+</mat-form-field>

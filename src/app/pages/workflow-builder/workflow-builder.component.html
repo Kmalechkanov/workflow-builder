@@ -1,4 +1,4 @@
-<mat-drawer-container class="container">
+<mat-drawer-container class="container" autosize>
     <mat-drawer #drawer class="sidenav" opened="true" [style.width]="toggleResize ? '50%' : ''" mode="side"
         position="end" layout="vertical">
 
@@ -6,7 +6,7 @@
             <ng-container *ngFor="let routes of navigation">
                 <a class="route" (click)="openFolderByPath(routes)">
                     /{{
-                        routes[routes.length-1] == undefined ? "Root" : routes[routes.length-1]
+                    routes[routes.length-1] == undefined ? "Root" : routes[routes.length-1]
                     }}
                 </a>
             </ng-container>
@@ -21,8 +21,14 @@
             </div>
         </div>
 
-        <div *ngIf="visualizedData" class="services">
-            <div *ngFor="let service of visualizedData.services">
+        <div *ngIf="visualizedData" class="services" cdkDropList 
+            cdkDropListConnectedTo="selected"
+            (cdkDropListDropped)="drop($event)"
+            [cdkDropListEnterPredicate]="noReturnPredicate"
+            [cdkDropListSortingDisabled]="true">
+            <div *ngFor="let service of visualizedData.services"
+                cdkDrag 
+                [cdkDragData]="service.data">
                 <button mat-button>
                     <mat-icon mat-icon-button>
                         settings
@@ -40,9 +46,22 @@
     </mat-drawer>
 
     <div class="sidenav-content">
-        <button type="button" mat-button (click)="drawer.toggle()">
-            Toggle sidenav
-        </button>
+        <div class="flex">
+            <h4>
+                Workflow
+            </h4>
+            <button type="button" mat-button (click)="drawer.toggle()">
+                Toggle sidenav
+            </button>
+        </div>
+
+        <div id="selected" class="selected-list" cdkDropList 
+            [cdkDropListData]="selected"
+            (cdkDropListDropped)="drop($event)">
+            <div class="example-box" *ngFor="let flow of selected">
+                <app-flow [data]="flow"></app-flow>
+            </div>
+        </div>
     </div>
 
 </mat-drawer-container>

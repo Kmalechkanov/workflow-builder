@@ -1,0 +1,22 @@
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <h2>{{data.name}}<span> - {{data.meta.info}}</span></h2>
+    <div class="step-in">
+        <h3>Inputs:</h3>
+        <div class="flex">
+            <div class="fixed-width" *ngFor="let variable of data.process.variables | inputVariables">
+                <app-dynamic-input-wrapper [variable]="variable" [parentForm]="myForm">
+                </app-dynamic-input-wrapper>
+            </div>
+        </div>
+    </div>
+    <div class="step-in">
+        <h3>Outputs:</h3>
+        <div class="step-in" *ngFor="let variable of data.process.variables | outputVariables">
+            <p>
+                {{variable.meta.displayName ? variable.meta.displayName : this.variable.name}} : {{variable.schema.type!}}
+            </p>
+        </div>
+    </div>
+    <input type="number" hidden [value]="data.id">
+    <button mat-raised-button color="primary" [title]="data.meta.info">Action</button>
+</form>

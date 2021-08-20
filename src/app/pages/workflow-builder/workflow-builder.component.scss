@@ -1,34 +1,23 @@
 .container {
-    height: 700px;
+    height: 95vh;
 }
 
 .sidenav-content {
-    display: flex;
     height: 100%;
-    align-items: center;
-    justify-content: center;
+    background-color: rgb(245, 244, 244);
+    padding: 45px;
+    box-sizing: border-box;
+}
+
+.flex {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
 }
 
 .sidenav {
     padding: 20px;
-}
-
-.example-tree-invisible {
-    display: none;
-}
-
-.example-tree ul,
-.example-tree li {
-    margin-top: 0;
-    margin-bottom: 0;
-    list-style-type: none;
-}
-.example-tree-node {
-    display: block;
-}
-
-.example-tree-node .example-tree-node {
-    padding-left: 20px;
+    min-width: 300px;
 }
 
 .flex {
@@ -46,4 +35,12 @@
 
 .services {
     color: gray;
+}
+
+.selected-list {
+    border: 2px dashed #dfcdff;
+    padding: 15px;
+    min-width: 50px;
+    min-height: 50px;
+    border-radius: 10px;
 }
