@@ -1,4 +1,4 @@
-export class Schema {
+export class FlowSchema {
     type!: string;
     additionalProperties?: object;
     items?: object;

@@ -12,16 +12,16 @@ import { TextSuggestionInputComponent } from "../text-suggestion-input/text-sugg
     selector: 'app-dynamic-input-wrapper',
     templateUrl: './dynamic-input-wrapper.component.html',
 })
-export class DynamicInputWrapperComponent extends DynamicInputBaseComponent {
+export class DynamicInputWrapperComponent extends DynamicInputBaseComponent  {
     get component(): Type<DynamicInputBaseComponent> {
-        if (this.variable.schema.enum) {
+        if (this.data.enum) {
             return SelectInputComponent;
         }
-        if (this.variable.meta.authType) {
+        if (this.data.authType) {
             return TextSuggestionInputComponent;
         }
 
-        switch (this.variable.schema.type) {
+        switch (this.data.type) {
             case 'array':
                 return ArrayInputComponent;
             case 'number':

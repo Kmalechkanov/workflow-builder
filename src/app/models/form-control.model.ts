@@ -1,11 +1,12 @@
 import { FormControl as FC, FormGroup, Validators } from '@angular/forms';
-import { Flow } from './flow.model';
+import { Flow } from './flow/flow.model';
 import { regexConstants as regex } from '../constants/regex.constants';
+import { AuthschemaSchema } from './authentication/authschema-schema.model';
 
 export class FormControl {
     constructor() { }
 
-    toFormGroup(flow: Flow): FormGroup {
+    toFlowFormGroup(flow: Flow): FormGroup {
         const group: any = {};
         let value: any;
 
@@ -25,6 +26,27 @@ export class FormControl {
 
             group[variable.name] = new FC(value, Validators.compose(validators));
         });
+        return new FormGroup(group);
+    }
+
+    toAuthenticationFormGroup(authschema: AuthschemaSchema): FormGroup {
+        const group: any = {};
+        let value: any;
+
+        for (let [key,schema] of Object.entries(authschema.properties)) {
+            let validators = [];
+            value = '';
+
+            if (authschema.required.includes(key)) {
+                validators.push(Validators.required);
+            }
+            if (schema.default) {
+                value = schema.default;
+            }
+
+            group[key] = new FC(value, Validators.compose(validators));
+        }
+
         return new FormGroup(group);
     }
 }

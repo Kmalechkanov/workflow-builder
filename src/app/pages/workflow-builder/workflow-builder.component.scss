@@ -4,9 +4,6 @@
 
 .sidenav-content {
     height: 100%;
-    background-color: rgb(245, 244, 244);
-    padding: 45px;
-    box-sizing: border-box;
 }
 
 .flex {
@@ -18,10 +15,6 @@
 .sidenav {
     padding: 20px;
     min-width: 300px;
-}
-
-.flex {
-    display: flex;
 }
 
 .route {
@@ -38,9 +31,6 @@
 }
 
 .selected-list {
-    border: 2px dashed #dfcdff;
-    padding: 15px;
     min-width: 50px;
     min-height: 50px;
-    border-radius: 10px;
 }

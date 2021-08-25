@@ -30,6 +30,12 @@ import { InputVariablesPipe } from 'src/app/pipes/input-variables.pipe';
 import { OutputVariablesPipe } from 'src/app/pipes/output-variables.pipe';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { TextSuggestionInputComponent } from 'src/app/components/dynamic-input/text-suggestion-input/text-suggestion-input.component';
+import { AuthenticationsComponent } from 'src/app/pages/authentications/authentications.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
+import { AddAuthenticationComponent } from '../../components/add-authentication/add-authentication.component'
+import { KeyValuePipe } from 'src/app/pipes/key-value.pipe';
 
 @NgModule({
   declarations: [
@@ -48,6 +54,9 @@ import { TextSuggestionInputComponent } from 'src/app/components/dynamic-input/t
     SelectInputComponent,
     InputVariablesPipe,
     OutputVariablesPipe,
+    KeyValuePipe,
+    AuthenticationsComponent,
+    AddAuthenticationComponent,
   ],
   imports: [
     CommonModule,
@@ -67,6 +76,9 @@ import { TextSuggestionInputComponent } from 'src/app/components/dynamic-input/t
     MatSelectModule,
     MatCheckboxModule,
     MatAutocompleteModule,
+    MatTableModule,
+    MatMenuModule,
+    MatDialogModule,
   ],
   exports: [
   ],

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from "@angular/core";
-import { Variable } from "../models/variable.model";
+import { Variable } from "../models/flow/variable.model";
 
 @Pipe({
     name: 'inputVariables'

@@ -45,17 +45,17 @@
 
     </mat-drawer>
 
-    <div class="sidenav-content">
+    <div class="sidenav-content content">
         <div class="flex">
-            <h4>
+            <h2>
                 Workflow
-            </h4>
+            </h2>
             <button type="button" mat-button (click)="drawer.toggle()">
                 Toggle sidenav
             </button>
         </div>
 
-        <div id="selected" class="selected-list" cdkDropList 
+        <div id="selected" class="selected-list dashed-content" cdkDropList 
             [cdkDropListData]="selected"
             (cdkDropListDropped)="drop($event)">
             <div class="example-box" *ngFor="let flow of selected">

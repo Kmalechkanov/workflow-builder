@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { Token } from '../models/token.model';
 import { AuthService } from './auth.service';
 
 @Injectable({

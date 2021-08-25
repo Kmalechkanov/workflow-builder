@@ -1,9 +1,9 @@
 <mat-form-field appearance="fill">
     <mat-label>
-        {{variable.meta.displayName ? variable.meta.displayName : this.variable.name}}
+        {{data.displayName ? data.displayName : data.name}}
     </mat-label>
 
     <div [formGroup]="parentForm">
-        <input matInput placeholder="Placeholder" type="text" [formControlName]="variable.name">
+        <input matInput placeholder="Placeholder" type="text" [formControlName]="data.name">
     </div>
 </mat-form-field>

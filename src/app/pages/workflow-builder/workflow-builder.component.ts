@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { IntegrationTree } from 'src/app/models/integration-tree.model';
 import { IntegrationService } from 'src/app/services/integration.service';
 import { take } from 'rxjs/operators';
-import { Integration } from 'src/app/models/integration.model';
-import { IntegrationServiceModel } from 'src/app/models/integration-service.model';
-import { CdkDragDrop, CdkDragExit } from '@angular/cdk/drag-drop';
+import { Integration } from 'src/app/models/integration/integration.model';
+import { IntegrationServiceModel } from 'src/app/models/integration/integration-service.model';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { FlowService } from 'src/app/services/flow.service';
-import { Flow } from 'src/app/models/flow.model';
+import { Flow } from 'src/app/models/flow/flow.model';
+import { IntegrationTree } from 'src/app/models/integration/integration-tree.model';
 
 @Component({
   selector: 'app-workflow-builder',
@@ -59,8 +59,6 @@ export class WorkflowBuilderComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<Flow[]>): void {
-    console.log(event.item.data);
-    console.log(event.item.data.id);
     if (event.previousContainer != event.container) {
 
       this.flowService.get(event.item.data.id).pipe(take(1)).subscribe(
