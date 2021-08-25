@@ -47,7 +47,6 @@ export class AddAuthenticationComponent implements OnInit {
   }
 
   onSubmit(): void {
-
   }
 
   onCancel(): void {
