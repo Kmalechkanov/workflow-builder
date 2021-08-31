@@ -7,6 +7,9 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { FormControl } from 'src/app/models/form-control.model';
 import { DynamicInput } from 'src/app/models/dynamic-input/dynamic-input.model';
 import { AuthschemaProperty } from 'src/app/models/authentication/authschema-property.model';
+import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarComponent } from '../../snackbar/snackbar.component';
 
 @Component({
   selector: 'app-add-authentication',
@@ -18,11 +21,12 @@ export class AddAuthenticationComponent implements OnInit {
   serviceForm!: FormGroup;
   services!: Authschema[];
   properties!: [string, AuthschemaProperty][];
-
   private formControl: FormControl = new FormControl();
 
   constructor(
     private fb: FormBuilder,
+    public snackBar: MatSnackBar,
+    public dialogRef: MatDialogRef<AddAuthenticationComponent>,
     private authenticationService: AuthenticationService,
   ) {
     this.form = this.fb.group({
@@ -47,9 +51,44 @@ export class AddAuthenticationComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.form.updateValueAndValidity();
+    let valid = true;
+    if (this.form.valid && this.form.errors == null) {
+      // todo unique auth name
+    }
+    else {
+      valid = false;
+    }
+
+    if (this.serviceForm.valid && this.serviceForm.errors == null) {
+      // todo fix not coloring red when error
+    }
+    else {
+      valid = false;
+    }
+
+    if (valid) {
+      this.authenticationService.create(
+        this.form.get('name')!.value,
+        this.form.get('description')!.value,
+        this.form.get('service')!.value.serviceName,
+        this.serviceForm.value,
+      ).pipe(take(1)).subscribe({
+        next: () => {
+          this.snackBar.openFromComponent(SnackbarComponent, {
+            data: "Successfully created authentication!"
+          });
+          this.dialogRef.close(true);
+        },
+        error: () => {
+          this.form.setErrors({ 'incorrect': true });
+        }
+      });
+    }
   }
 
   onCancel(): void {
+    this.dialogRef.close(false);
   }
 
   propertyToDynamicInput(property: AuthschemaProperty, name: string): DynamicInput {

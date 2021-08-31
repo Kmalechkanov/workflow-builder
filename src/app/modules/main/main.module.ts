@@ -34,8 +34,14 @@ import { AuthenticationsComponent } from 'src/app/pages/authentications/authenti
 import { MatTableModule } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
-import { AddAuthenticationComponent } from '../../components/add-authentication/add-authentication.component'
+import { AddAuthenticationComponent } from '../../components/authentication/add-authentication/add-authentication.component'
 import { KeyValuePipe } from 'src/app/pipes/key-value.pipe';
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { SnackbarComponent } from 'src/app/components/snackbar/snackbar.component';
+import { PasswordInputComponent } from 'src/app/components/dynamic-input/password-input/password-input.component';
+import { YesNoDialogComponent } from 'src/app/components/yes-no-dialog/yes-no-dialog.component';
+import { EditAuthenticationComponent } from 'src/app/components/authentication/edit-authentication/edit-authentication.component';
+
 
 @NgModule({
   declarations: [
@@ -50,6 +56,7 @@ import { KeyValuePipe } from 'src/app/pipes/key-value.pipe';
     IntegerInputComponent,
     NumberInputComponent,
     TextInputComponent,
+    PasswordInputComponent,
     TextSuggestionInputComponent,
     SelectInputComponent,
     InputVariablesPipe,
@@ -57,6 +64,9 @@ import { KeyValuePipe } from 'src/app/pipes/key-value.pipe';
     KeyValuePipe,
     AuthenticationsComponent,
     AddAuthenticationComponent,
+    EditAuthenticationComponent,
+    SnackbarComponent,
+    YesNoDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -79,6 +89,10 @@ import { KeyValuePipe } from 'src/app/pipes/key-value.pipe';
     MatTableModule,
     MatMenuModule,
     MatDialogModule,
+    MatSnackBarModule,
+  ],
+  providers: [
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 3500 } },
   ],
   exports: [
   ],

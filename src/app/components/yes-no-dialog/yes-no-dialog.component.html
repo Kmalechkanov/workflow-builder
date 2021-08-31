@@ -1,0 +1,8 @@
+<div class="container">
+    <h2>{{data.title}}</h2>
+    <p>{{data.text}}</p>
+    <div>
+        <button mat-button (click)="cancel()">No</button>
+        <button mat-raised-button [color]="data.color" (click)="proceed()" cdkFocusInitial>Yes</button>
+    </div>
+</div>
