@@ -1,3 +1,5 @@
+import { Observable } from "rxjs/internal/Observable";
+
 export class DynamicInput {
     public constructor(obj: DynamicInput) {
         this.name = obj.name;
@@ -23,7 +25,7 @@ export class DynamicInput {
     additionalProperties?: object;
     items?: object;
     properties?: object;
-    enum?: string[];
+    enum?: string[] | Observable<string[]>;
     format?: string;
     default?: string;
 }

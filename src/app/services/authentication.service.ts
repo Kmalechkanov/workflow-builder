@@ -26,6 +26,13 @@ export class AuthenticationService {
         return this.httpClient.get<Authentication[]>(env.api + '/400/authentications', { params: httpParams });
     }
 
+    getAllOf$(serviceName: string): Observable<Authentication[]> {
+        let httpParams = new HttpParams()
+            .set('userId', this.userService.getId())
+            .set('serviceName', serviceName);
+        return this.httpClient.get<Authentication[]>(env.api + '/400/authentications', { params: httpParams });
+    }
+
     getSchemes$(): Observable<Authschema[]> {
         return this.httpClient.get<Authschema[]>(env.api + '/440/authschemas');
     }

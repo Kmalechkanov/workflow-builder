@@ -13,6 +13,7 @@ export class TextSuggestionInputComponent extends DynamicInputBaseComponent {
 
   ngOnInit() {
     this.suggestions = [];
+
     this.filteredOptions = this.parentForm.get(this.data.name)!.valueChanges
       .pipe(
         startWith(''),

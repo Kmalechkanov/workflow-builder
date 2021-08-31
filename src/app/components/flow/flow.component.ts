@@ -1,9 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { DynamicInput } from 'src/app/models/dynamic-input/dynamic-input.model';
 import { Flow } from 'src/app/models/flow/flow.model';
 import { Variable } from 'src/app/models/flow/variable.model';
 import { FormControl } from 'src/app/models/form-control.model';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { DynamicInputBaseComponent } from '../dynamic-input/dynamic-input-base.component';
 
 @Component({
@@ -21,6 +24,7 @@ export class FlowComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private authenticationService: AuthenticationService,
   ) { }
 
   ngOnInit(): void {
@@ -31,6 +35,18 @@ export class FlowComponent implements OnInit {
   }
 
   variableToDynamicInput(variable: Variable): DynamicInput {
+    let tempEnum: string[] | Observable<string[]> | undefined = variable.schema.enum;
+    if (variable.meta.authType) {
+      tempEnum = this.authenticationService.getAllOf$(variable.meta.authType!)
+        .pipe(map(auths => {
+          let temp: string[] = [];
+          auths.forEach(auth => {
+            temp.push(auth.name);
+          });
+          return temp;
+        }));
+    }
+
     return new DynamicInput({
       name: variable.name,
       required: variable.required,
@@ -38,10 +54,9 @@ export class FlowComponent implements OnInit {
       additionalProperties: variable.schema.additionalProperties,
       items: variable.schema.additionalProperties,
       properties: variable.schema.properties,
-      enum: variable.schema.enum,
+      enum: tempEnum,
       description: variable.meta.description,
       displayName: variable.meta.displayName,
-      authType: variable.meta.authType,
     });
   }
 }

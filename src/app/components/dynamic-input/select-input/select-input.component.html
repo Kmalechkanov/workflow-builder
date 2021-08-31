@@ -1,10 +1,15 @@
+<ng-container *ngIf="open == true; else elseBlock">
 <mat-form-field appearance="fill">
     <mat-label>{{data.displayName ? data.displayName : data.name}}</mat-label>
-    <div [formGroup]="parentForm">
-        <mat-select [formControlName]="data.name">
-            <mat-option *ngFor="let value of data.enum" [value]="value">
-                {{value}}
-            </mat-option>
-        </mat-select>
-    </div>
-</mat-form-field>
+        <div [formGroup]="parentForm">
+            <mat-select [formControlName]="data.name">
+                <mat-option *ngFor="let value of options" [value]="value">
+                    {{value}}
+                </mat-option>
+            </mat-select>
+        </div>
+    </mat-form-field>
+</ng-container>
+<ng-template #elseBlock>
+    <p>Loading...</p>
+</ng-template>
