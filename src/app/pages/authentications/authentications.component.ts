@@ -66,7 +66,7 @@ export class AuthenticationsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.authenticationService.delete(id).pipe(take(1)).subscribe({
+        this.authenticationService.delete$(id).pipe(take(1)).subscribe({
           next: () => {
             this.snackBar.openFromComponent(SnackbarComponent, {
               data: "Succesfully deleted authentication!"
@@ -86,7 +86,7 @@ export class AuthenticationsComponent implements OnInit {
 
   private getAuthentications(): void {
     const userId = this.userService.getId();
-    this.authenticationService.getAll(userId)
+    this.authenticationService.getAll$(userId)
       .pipe(take(1)).subscribe({
         next: (res) => {
           this.dataSource = res;

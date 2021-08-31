@@ -39,12 +39,12 @@ export class EditAuthenticationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authenticationService.get(this.data.id).pipe((take(1))).subscribe(res => {
+    this.authenticationService.get$(this.data.id).pipe((take(1))).subscribe(res => {
       this.form.get('name')?.setValue(res.name);
       this.form.get('description')?.setValue(res.description);
       this.form.get('serviceName')?.setValue(res.serviceName);
 
-      this.authenticationService.getSchema(res.serviceName).pipe(take(1)).subscribe(res => {
+      this.authenticationService.getSchema$(res.serviceName).pipe(take(1)).subscribe(res => {
         this.properties = Object.entries(res.schema.properties);
         this.form.controls.serviceGroup = this.formControl.toAuthenticationFormGroup(res.schema);
         this.serviceForm = (this.form.controls.serviceGroup as FormGroup);
@@ -70,7 +70,7 @@ export class EditAuthenticationComponent implements OnInit {
     }
 
     if (valid) {
-      this.authenticationService.edit(
+      this.authenticationService.edit$(
         this.data.id,
         this.form.get('name')!.value,
         this.form.get('description')!.value,

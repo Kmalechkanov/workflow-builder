@@ -12,7 +12,7 @@ export class FlowService {
         private httpClient: HttpClient,
     ) { }
 
-    get(id: number): Observable<Flow> {
+    get$(id: number): Observable<Flow> {
         return this.httpClient.get<Flow>(env.api + '/440/flows/' + id);
     }
 }

@@ -38,7 +38,7 @@ export class AddAuthenticationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authenticationService.getSchemes()
+    this.authenticationService.getSchemes$()
       .pipe(take(1)).subscribe(res => {
         this.services = res;
       });
@@ -68,7 +68,7 @@ export class AddAuthenticationComponent implements OnInit {
     }
 
     if (valid) {
-      this.authenticationService.create(
+      this.authenticationService.create$(
         this.form.get('name')!.value,
         this.form.get('description')!.value,
         this.form.get('service')!.value.serviceName,

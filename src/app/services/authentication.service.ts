@@ -16,31 +16,31 @@ export class AuthenticationService {
         private userService: UserService,
     ) { }
 
-    get(id: number): Observable<Authentication> {
+    get$(id: number): Observable<Authentication> {
         return this.httpClient.get<Authentication>(env.api + '/400/authentications/' + id);
     }
 
-    getAll(userId: number): Observable<Authentication[]> {
+    getAll$(userId: number): Observable<Authentication[]> {
         let httpParams = new HttpParams()
             .set('userId', userId);
         return this.httpClient.get<Authentication[]>(env.api + '/400/authentications', { params: httpParams });
     }
 
-    getSchemes(): Observable<Authschema[]> {
+    getSchemes$(): Observable<Authschema[]> {
         return this.httpClient.get<Authschema[]>(env.api + '/440/authschemas');
     }
 
-    getServiceName(id: number): Observable<string> {
+    getServiceName$(id: number): Observable<string> {
         return this.httpClient.get<Authentication>(env.api + '/400/authentication/' + id).pipe(map(x => x.serviceName));
     }
 
-    getSchema(name: string): Observable<Authschema> {
+    getSchema$(name: string): Observable<Authschema> {
         let httpParams = new HttpParams()
             .set('serviceName', name);
         return this.httpClient.get<Authschema[]>(env.api + '/440/authschemas', { params: httpParams }).pipe(map(x => x[0]));
     }
 
-    edit(id: number, name: string, description: string, data: object): Observable<Authentication> {
+    edit$(id: number, name: string, description: string, data: object): Observable<Authentication> {
         let date = new Date().getTime();
         let body = {
             userId: this.userService.getId(),
@@ -53,7 +53,7 @@ export class AuthenticationService {
         return this.httpClient.patch<Authentication>(env.api + '/600/authentications/' + id, body);
     }
 
-    create(name: string, description: string, serviceName: string, data: object): Observable<Authentication> {
+    create$(name: string, description: string, serviceName: string, data: object): Observable<Authentication> {
         let date = new Date().getTime();
         let body = {
             userId: this.userService.getId(),
@@ -68,7 +68,7 @@ export class AuthenticationService {
         return this.httpClient.post<Authentication>(env.api + '/660/authentications', body);
     }
 
-    delete(id: number): Observable<any> {
+    delete$(id: number): Observable<any> {
         return this.httpClient.delete<Authentication>(env.api + '/600/authentications/' + id);
     }
 }

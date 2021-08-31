@@ -12,7 +12,7 @@ export class IntegrationService {
         private httpClient: HttpClient,
     ) { }
 
-    getAll(): Observable<Integration[]> {
+    getAll$(): Observable<Integration[]> {
         return this.httpClient.get<Integration[]>(env.api + '/640/integrations');
     }
 }

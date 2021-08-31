@@ -30,7 +30,7 @@ export class WorkflowBuilderComponent implements OnInit {
     this.navigation = [[]];
     this.data = new IntegrationTree;
     this.data.name = '';
-    this.integrationService.getAll().pipe(take(1)).subscribe(
+    this.integrationService.getAll$().pipe(take(1)).subscribe(
       res => {
         this.integrationsToData(res);
         this.visualizedData = this.data;
@@ -61,7 +61,7 @@ export class WorkflowBuilderComponent implements OnInit {
   drop(event: CdkDragDrop<Flow[]>): void {
     if (event.previousContainer != event.container) {
 
-      this.flowService.get(event.item.data.id).pipe(take(1)).subscribe(
+      this.flowService.get$(event.item.data.id).pipe(take(1)).subscribe(
         res => {
           this.selected.push(res);
         }
