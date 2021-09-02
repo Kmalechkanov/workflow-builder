@@ -21,14 +21,10 @@
             </div>
         </div>
 
-        <div *ngIf="visualizedData" class="services" cdkDropList 
-            cdkDropListConnectedTo="selected"
-            (cdkDropListDropped)="drop($event)"
-            [cdkDropListEnterPredicate]="noReturnPredicate"
+        <div *ngIf="visualizedData" class="services" cdkDropList cdkDropListConnectedTo="selected"
+            (cdkDropListDropped)="drop($event)" [cdkDropListEnterPredicate]="noReturnPredicate"
             [cdkDropListSortingDisabled]="true">
-            <div *ngFor="let service of visualizedData.services"
-                cdkDrag 
-                [cdkDragData]="service.data">
+            <div *ngFor="let service of visualizedData.services" cdkDrag [cdkDragData]="service.data">
                 <button mat-button>
                     <mat-icon mat-icon-button>
                         settings
@@ -50,13 +46,28 @@
             <h2>
                 Workflow
             </h2>
-            <button type="button" mat-button (click)="drawer.toggle()">
-                Toggle sidenav
-            </button>
+            <div>
+                <button mat-button [matMenuTriggerFor]="menu">
+                    <span>Authentications</span>
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)=addAuthenticationDialog()>
+                        <mat-icon>add</mat-icon>
+                        <span>Add</span>
+                    </button>
+                    <button mat-menu-item (click)=listAuthenticationsDialog()>
+                        <mat-icon>list</mat-icon>
+                        <span>List</span>
+                    </button>
+                </mat-menu>
+                <button mat-button (click)="drawer.toggle()">
+                    Toggle sidenav
+                </button>
+            </div>
         </div>
 
-        <div id="selected" class="selected-list dashed-content" cdkDropList 
-            [cdkDropListData]="selected"
+        <div id="selected" class="selected-list dashed-content" cdkDropList [cdkDropListData]="selected"
             (cdkDropListDropped)="drop($event)">
             <div class="example-box" *ngFor="let flow of selected">
                 <app-flow [data]="flow"></app-flow>

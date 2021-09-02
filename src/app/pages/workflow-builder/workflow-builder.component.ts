@@ -7,6 +7,9 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { FlowService } from 'src/app/services/flow.service';
 import { Flow } from 'src/app/models/flow/flow.model';
 import { IntegrationTree } from 'src/app/models/integration/integration-tree.model';
+import { AddAuthenticationComponent } from 'src/app/components/authentication/add-authentication/add-authentication.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ListAuthenticationsComponent } from 'src/app/components/authentication/list-authentication/list-authentications.component';
 
 @Component({
   selector: 'app-workflow-builder',
@@ -24,6 +27,7 @@ export class WorkflowBuilderComponent implements OnInit {
   constructor(
     private integrationService: IntegrationService,
     private flowService: FlowService,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -36,6 +40,16 @@ export class WorkflowBuilderComponent implements OnInit {
         this.visualizedData = this.data;
       }
     );
+  }
+
+  listAuthenticationsDialog(): void {
+    const dialogRef = this.dialog.open(ListAuthenticationsComponent);
+    dialogRef.afterClosed().subscribe();
+  }
+
+  addAuthenticationDialog(): void {
+    const dialogRef = this.dialog.open(AddAuthenticationComponent);
+    dialogRef.afterClosed().subscribe();
   }
 
   openFolderByPath(path: string[]): void {

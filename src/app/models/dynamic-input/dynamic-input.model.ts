@@ -11,7 +11,6 @@ export class DynamicInput {
         this.enum = obj.enum;
         this.description = obj.description;
         this.displayName = obj.displayName;
-        this.authType = obj.authType;
         this.default = obj.default;
         this.format = obj.format;
     }
@@ -21,7 +20,6 @@ export class DynamicInput {
     required?: boolean;
     displayName?: string;
     description?: string;
-    authType?: string;
     additionalProperties?: object;
     items?: object;
     properties?: object;

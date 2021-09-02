@@ -41,7 +41,7 @@ import { SnackbarComponent } from 'src/app/components/snackbar/snackbar.componen
 import { PasswordInputComponent } from 'src/app/components/dynamic-input/password-input/password-input.component';
 import { YesNoDialogComponent } from 'src/app/components/yes-no-dialog/yes-no-dialog.component';
 import { EditAuthenticationComponent } from 'src/app/components/authentication/edit-authentication/edit-authentication.component';
-
+import { ListAuthenticationsComponent } from 'src/app/components/authentication/list-authentication/list-authentications.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +65,7 @@ import { EditAuthenticationComponent } from 'src/app/components/authentication/e
     AuthenticationsComponent,
     AddAuthenticationComponent,
     EditAuthenticationComponent,
+    ListAuthenticationsComponent,
     SnackbarComponent,
     YesNoDialogComponent,
   ],
