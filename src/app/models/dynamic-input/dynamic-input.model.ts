@@ -1,4 +1,4 @@
-import { Observable } from "rxjs/internal/Observable";
+import { Observable } from "rxjs";
 
 export class DynamicInput {
     public constructor(obj: DynamicInput) {

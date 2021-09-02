@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DynamicInput } from 'src/app/models/dynamic-input/dynamic-input.model';
 import { Flow } from 'src/app/models/flow/flow.model';
@@ -16,7 +16,7 @@ import { DynamicInputBaseComponent } from '../dynamic-input/dynamic-input-base.c
 })
 export class FlowComponent implements OnInit {
   @Input() data!: Flow;
-
+  @Input() reset?: Subject<boolean> = new Subject<boolean>();
   myForm: FormGroup = this.fb.group({});
 
   component = DynamicInputBaseComponent;
@@ -37,14 +37,16 @@ export class FlowComponent implements OnInit {
   variableToDynamicInput(variable: Variable): DynamicInput {
     let tempEnum: string[] | Observable<string[]> | undefined = variable.schema.enum;
     if (variable.meta.authType) {
-      tempEnum = this.authenticationService.getAllOf$(variable.meta.authType!)
-        .pipe(map(auths => {
-          let temp: string[] = [];
-          auths.forEach(auth => {
-            temp.push(auth.name);
-          });
-          return temp;
-        }));
+
+      tempEnum = this.authenticationService.update$(
+        this.authenticationService.getAllOf$(variable.meta.authType)
+          .pipe(map(auths => {
+            let temp: string[] = [];
+            auths.forEach(auth => {
+              temp.push(auth.name);
+            });
+            return temp;
+          })));
     }
 
     return new DynamicInput({

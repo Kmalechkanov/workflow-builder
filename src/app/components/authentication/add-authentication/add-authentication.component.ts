@@ -52,6 +52,7 @@ export class AddAuthenticationComponent implements OnInit {
 
   onSubmit(): void {
     this.form.updateValueAndValidity();
+    this.serviceForm.markAllAsTouched();
     let valid = true;
     if (this.form.valid && this.form.errors == null) {
       // todo unique auth name
@@ -60,13 +61,10 @@ export class AddAuthenticationComponent implements OnInit {
       valid = false;
     }
 
-    if (this.serviceForm.valid && this.serviceForm.errors == null) {
-      // todo fix not coloring red when error
-    }
-    else {
+    if (!(this.serviceForm.valid && this.serviceForm.errors == null)) {
       valid = false;
     }
-
+    
     if (valid) {
       this.authenticationService.create$(
         this.form.get('name')!.value,

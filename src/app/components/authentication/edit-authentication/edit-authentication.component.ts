@@ -54,18 +54,16 @@ export class EditAuthenticationComponent implements OnInit {
 
   onSubmit(): void {
     this.form.updateValueAndValidity();
+    this.serviceForm.markAllAsTouched();
     let valid = true;
     if (this.form.valid && this.form.errors == null) {
-      // todo unique auth name
+      // todo fix not coloring red when error
     }
     else {
       valid = false;
     }
 
-    if (this.serviceForm.valid && this.serviceForm.errors == null) {
-      // todo fix not coloring red when error
-    }
-    else {
+    if (!(this.serviceForm.valid && this.serviceForm.errors == null)) {
       valid = false;
     }
 
