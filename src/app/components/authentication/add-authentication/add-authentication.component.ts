@@ -64,7 +64,7 @@ export class AddAuthenticationComponent implements OnInit {
     if (!(this.serviceForm.valid && this.serviceForm.errors == null)) {
       valid = false;
     }
-    
+
     if (valid) {
       this.authenticationService.create$(
         this.form.get('name')!.value,

@@ -10,7 +10,6 @@ import { IntegrationTree } from 'src/app/models/integration/integration-tree.mod
 import { AddAuthenticationComponent } from 'src/app/components/authentication/add-authentication/add-authentication.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ListAuthenticationsComponent } from 'src/app/components/authentication/list-authentication/list-authentications.component';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-workflow-builder',
@@ -23,8 +22,6 @@ export class WorkflowBuilderComponent implements OnInit {
   visualizedData!: IntegrationTree;
   navigation!: [string[]];
   selected: Flow[] = [];
-
-  reset: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private integrationService: IntegrationService,
@@ -46,16 +43,10 @@ export class WorkflowBuilderComponent implements OnInit {
 
   listAuthenticationsDialog(): void {
     const dialogRef = this.dialog.open(ListAuthenticationsComponent);
-    dialogRef.afterClosed().subscribe();
   }
 
   addAuthenticationDialog(): void {
     const dialogRef = this.dialog.open(AddAuthenticationComponent);
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.reset.next(true);
-      }
-    });
   }
 
   openFolderByPath(path: string[]): void {

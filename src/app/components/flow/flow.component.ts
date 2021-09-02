@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DynamicInput } from 'src/app/models/dynamic-input/dynamic-input.model';
 import { Flow } from 'src/app/models/flow/flow.model';
@@ -16,7 +16,6 @@ import { DynamicInputBaseComponent } from '../dynamic-input/dynamic-input-base.c
 })
 export class FlowComponent implements OnInit {
   @Input() data!: Flow;
-  @Input() reset?: Subject<boolean> = new Subject<boolean>();
   myForm: FormGroup = this.fb.group({});
 
   component = DynamicInputBaseComponent;

@@ -1,7 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { EditAuthenticationComponent } from 'src/app/components/authentication/edit-authentication/edit-authentication.component';
 import { SnackbarComponent } from 'src/app/components/snackbar/snackbar.component';
@@ -16,7 +15,6 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./list-authentications.component.scss']
 })
 export class ListAuthenticationsComponent implements OnInit {
-  @Input() reset: Subject<boolean> = new Subject<boolean>();
   displayedColumns: string[] = ['serviceName', 'name', 'description', 'actions'];
   dataSource!: Authentication[];
 
@@ -29,9 +27,6 @@ export class ListAuthenticationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAuthentications();
-    this.reset.subscribe(response => {
-      this.getAuthentications();
-    });
   }
 
   editDialog(id: number): void {
@@ -80,14 +75,17 @@ export class ListAuthenticationsComponent implements OnInit {
 
   private getAuthentications(): void {
     const userId = this.userService.getId();
-    this.authenticationService.getAll$(userId)
-      .pipe(take(1)).subscribe({
-        next: (res) => {
-          this.dataSource = res;
-        },
-        error: () => {
-          this.dataSource = [];
-        }
-      });
+
+    this.authenticationService.update$(
+      this.authenticationService.getAll$(userId)
+        .pipe(take(1))
+    ).subscribe({
+      next: (res) => {
+        this.dataSource = res;
+      },
+      error: () => {
+        this.dataSource = [];
+      }
+    })
   }
 }
