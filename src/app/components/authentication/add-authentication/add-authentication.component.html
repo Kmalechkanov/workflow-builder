@@ -5,6 +5,7 @@
         <mat-form-field appearance="fill">
             <mat-label>Name</mat-label>
             <input matInput placeholder="Placeholder" type="text" formControlName="name">
+            <mat-error *ngIf="form.get('name')!.hasError('inUse')">{{form.get('name')!.getError('inUse')}}</mat-error>
         </mat-form-field>
     </div>
 
@@ -28,10 +29,9 @@
 
     <div class="fixed-width" *ngFor="let property of properties | keyValue">
         <app-dynamic-input-wrapper [data]="propertyToDynamicInput(property.value, property.key)"
-            [parentForm]="serviceForm">
+            [parentForm]="serviceForm!">
         </app-dynamic-input-wrapper>
     </div>
-
     <button mat-button (click)="onCancel()">Cancel</button>
     <button mat-button (click)="onSubmit()" color="primary" cdkFocusInitial>Submit</button>
 </form>

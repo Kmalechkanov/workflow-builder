@@ -64,6 +64,12 @@ export class AuthenticationService {
         }));
     }
 
+    isUsed$(name: string): Observable<boolean> {
+        let httpParams = new HttpParams()
+            .set('name', name);
+        return this.httpClient.get<Authentication[]>(env.api + '/440/authentications', { params: httpParams }).pipe(map(x =>!(x.length == 0)));
+    }
+
     create$(name: string, description: string, serviceName: string, data: object): Observable<Authentication> {
         let date = new Date().getTime();
         let body = {

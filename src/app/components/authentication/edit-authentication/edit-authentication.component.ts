@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { take } from 'rxjs/operators';
 import { fieldContstants as fieldConsts } from 'src/app/constants/field.constants';
-import { Authschema } from 'src/app/models/authentication/authschema-model.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { FormControl } from 'src/app/models/form-control.model';
 import { DynamicInput } from 'src/app/models/dynamic-input/dynamic-input.model';
@@ -19,7 +18,6 @@ import { SnackbarComponent } from '../../snackbar/snackbar.component';
 export class EditAuthenticationComponent implements OnInit {
   form!: FormGroup;
   serviceForm!: FormGroup;
-  services!: Authschema[];
   properties!: [string, AuthschemaProperty][];
   private formControl: FormControl = new FormControl();
 
@@ -55,33 +53,29 @@ export class EditAuthenticationComponent implements OnInit {
   onSubmit(): void {
     this.form.updateValueAndValidity();
     this.serviceForm.markAllAsTouched();
-    let valid = true;
+
     if (this.form.valid && this.form.errors == null) {
-      // todo fix not coloring red when error
-    }
-    else {
-      valid = false;
-    }
-
-    if (!(this.serviceForm.valid && this.serviceForm.errors == null)) {
-      valid = false;
-    }
-
-    if (valid) {
-      this.authenticationService.edit$(
-        this.data.id,
-        this.form.get('name')!.value,
-        this.form.get('description')!.value,
-        this.serviceForm.value,
-      ).pipe(take(1)).subscribe({
-        next: () => {
-          this.snackBar.openFromComponent(SnackbarComponent, {
-            data: "Changes saved!"
+      this.authenticationService.isUsed$(this.form.get('name')!.value).subscribe((res) => {
+        if (!res) {
+          this.authenticationService.edit$(
+            this.data.id,
+            this.form.get('name')!.value,
+            this.form.get('description')!.value,
+            this.serviceForm.value,
+          ).pipe(take(1)).subscribe({
+            next: () => {
+              this.snackBar.openFromComponent(SnackbarComponent, {
+                data: "Changes saved!"
+              });
+              this.dialogRef.close(true);
+            },
+            error: () => {
+              this.form.setErrors({ 'incorrect': true });
+            }
           });
-          this.dialogRef.close(true);
-        },
-        error: () => {
-          this.form.setErrors({ 'incorrect': true });
+        }
+        else {
+          this.form.get('name')!.setErrors({ inUse: 'This name is already used.' });
         }
       });
     }

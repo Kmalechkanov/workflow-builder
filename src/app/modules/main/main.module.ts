@@ -42,6 +42,7 @@ import { PasswordInputComponent } from 'src/app/components/dynamic-input/passwor
 import { YesNoDialogComponent } from 'src/app/components/yes-no-dialog/yes-no-dialog.component';
 import { EditAuthenticationComponent } from 'src/app/components/authentication/edit-authentication/edit-authentication.component';
 import { ListAuthenticationsComponent } from 'src/app/components/authentication/list-authentication/list-authentications.component';
+import { FilterPipe } from 'src/app/pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { ListAuthenticationsComponent } from 'src/app/components/authentication/
     InputVariablesPipe,
     OutputVariablesPipe,
     KeyValuePipe,
+    FilterPipe,
     AuthenticationsComponent,
     AddAuthenticationComponent,
     EditAuthenticationComponent,

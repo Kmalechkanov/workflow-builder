@@ -1,5 +1,9 @@
 <div class="dashed-content">
-    <table mat-table [dataSource]="dataSource">
+    <form [formGroup]="form">
+        <input class="searchBar" type="text" formControlName="search" placeholder="Search">
+    </form>
+
+    <table mat-table [dataSource]="filteredData">
 
         <ng-container matColumnDef="serviceName">
             <th mat-header-cell *matHeaderCellDef> Service </th>

@@ -42,7 +42,9 @@ export class WorkflowBuilderComponent implements OnInit {
   }
 
   listAuthenticationsDialog(): void {
-    const dialogRef = this.dialog.open(ListAuthenticationsComponent);
+    const dialogRef = this.dialog.open(ListAuthenticationsComponent, {
+      minWidth: '500px',
+    });
   }
 
   addAuthenticationDialog(): void {

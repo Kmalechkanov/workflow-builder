@@ -18,7 +18,7 @@ import { SnackbarComponent } from '../../snackbar/snackbar.component';
 })
 export class AddAuthenticationComponent implements OnInit {
   form!: FormGroup;
-  serviceForm!: FormGroup;
+  serviceForm?: FormGroup;
   services!: Authschema[];
   properties!: [string, AuthschemaProperty][];
   private formControl: FormControl = new FormControl();
@@ -52,34 +52,30 @@ export class AddAuthenticationComponent implements OnInit {
 
   onSubmit(): void {
     this.form.updateValueAndValidity();
-    this.serviceForm.markAllAsTouched();
-    let valid = true;
+    this.serviceForm?.markAllAsTouched();
+
     if (this.form.valid && this.form.errors == null) {
-      // todo unique auth name
-    }
-    else {
-      valid = false;
-    }
-
-    if (!(this.serviceForm.valid && this.serviceForm.errors == null)) {
-      valid = false;
-    }
-
-    if (valid) {
-      this.authenticationService.create$(
-        this.form.get('name')!.value,
-        this.form.get('description')!.value,
-        this.form.get('service')!.value.serviceName,
-        this.serviceForm.value,
-      ).pipe(take(1)).subscribe({
-        next: () => {
-          this.snackBar.openFromComponent(SnackbarComponent, {
-            data: "Successfully created authentication!"
+      this.authenticationService.isUsed$(this.form.get('name')!.value).subscribe((res) => {
+        if (!res) {
+          this.authenticationService.create$(
+            this.form.get('name')!.value,
+            this.form.get('description')!.value,
+            this.form.get('service')!.value.serviceName,
+            this.serviceForm?.value,
+          ).pipe(take(1)).subscribe({
+            next: () => {
+              this.snackBar.openFromComponent(SnackbarComponent, {
+                data: "Successfully created authentication!"
+              });
+              this.dialogRef.close(true);
+            },
+            error: () => {
+              this.form.setErrors({ 'incorrect': true });
+            }
           });
-          this.dialogRef.close(true);
-        },
-        error: () => {
-          this.form.setErrors({ 'incorrect': true });
+        }
+        else {
+          this.form.get('name')!.setErrors({ inUse: 'This name is already used.' });
         }
       });
     }

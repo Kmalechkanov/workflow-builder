@@ -5,6 +5,7 @@
         <mat-form-field appearance="fill">
             <mat-label>Name</mat-label>
             <input matInput placeholder="Placeholder" type="text" formControlName="name">
+            <mat-error *ngIf="form.get('name')!.hasError('inUse')">{{form.get('name')!.getError('inUse')}}</mat-error>
         </mat-form-field>
     </div>
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { take } from 'rxjs/operators';
@@ -17,15 +18,24 @@ import { UserService } from 'src/app/services/user.service';
 export class ListAuthenticationsComponent implements OnInit {
   displayedColumns: string[] = ['serviceName', 'name', 'description', 'actions'];
   dataSource!: Authentication[];
+  filteredData!: Authentication[];
+  form!: FormGroup;
 
   constructor(
     private authenticationService: AuthenticationService,
     private userService: UserService,
     public snackBar: MatSnackBar,
     private dialog: MatDialog,
+    private fb: FormBuilder,
   ) { }
 
   ngOnInit(): void {
+    this.form = this.fb.group({
+      search: '',
+    });
+    this.form.controls.search.valueChanges.subscribe(x => {
+      this.filter(x);
+    });
     this.getAuthentications();
   }
 
@@ -73,6 +83,18 @@ export class ListAuthenticationsComponent implements OnInit {
     });
   }
 
+  private filter(text: string): void {
+    if (text) {
+
+    }
+
+    text = text.toLocaleLowerCase();
+
+    this.filteredData = this.dataSource.filter(data => {
+      return data.name.toLocaleLowerCase().includes(text);
+    });
+  }
+
   private getAuthentications(): void {
     const userId = this.userService.getId();
 
@@ -82,6 +104,7 @@ export class ListAuthenticationsComponent implements OnInit {
     ).subscribe({
       next: (res) => {
         this.dataSource = res;
+        this.filteredData = res;
       },
       error: () => {
         this.dataSource = [];
