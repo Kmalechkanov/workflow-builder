@@ -1,11 +1,11 @@
 <mat-form-field appearance="fill">
     <mat-label>
-        {{variable.meta.displayName ? variable.meta.displayName : this.variable.name}}
+        {{data.displayName ? data.displayName : data.name}}
     </mat-label>
 
     <div [formGroup]="parentForm">
         <input matInput placeholder="Placeholder" type="text" [matAutocomplete]="auto"
-            [formControlName]="variable.name">
+            [formControlName]="data.name">
         <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let suggestion of filteredOptions! | async" [value]="suggestion">
                 {{suggestion}}

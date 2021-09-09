@@ -1,11 +1,11 @@
 import { FieldMeta } from "./field-meta.model";
-import { Schema } from "./schema.model";
+import { FlowSchema } from "./flow-schema.model";
 
 export class Variable {
     name!: string;
     required: boolean = false;
     isInput!: boolean;
     isOutput!: boolean;
-    schema!: Schema;
+    schema!: FlowSchema;
     meta!: FieldMeta;
 }

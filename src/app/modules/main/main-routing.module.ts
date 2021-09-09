@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './component/main.component';
 import { HomeComponent } from 'src/app/pages/home/home.component';
 import { WorkflowBuilderComponent } from 'src/app/pages/workflow-builder/workflow-builder.component';
+import { AuthenticationsComponent } from 'src/app/pages/authentications/authentications.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
       { path: 'workflow-builder', component: WorkflowBuilderComponent },
+      { path: 'authentications', component: AuthenticationsComponent },
     ],
   },
 ]

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment as env } from 'src/environments/environment';
-import { Flow } from '../models/flow.model';
+import { Flow } from '../models/flow/flow.model';
 
 @Injectable({
     providedIn: 'root',
@@ -12,7 +12,7 @@ export class FlowService {
         private httpClient: HttpClient,
     ) { }
 
-    get(id: number): Observable<Flow> {
+    get$(id: number): Observable<Flow> {
         return this.httpClient.get<Flow>(env.api + '/440/flows/' + id);
     }
 }

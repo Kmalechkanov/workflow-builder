@@ -1,4 +1,4 @@
-import { BaseModel } from "./base-model.model";
+import { BaseModel } from "../base-model.model";
 
 export class Integration extends BaseModel {
     path!: string;

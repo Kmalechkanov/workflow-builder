@@ -30,6 +30,19 @@ import { InputVariablesPipe } from 'src/app/pipes/input-variables.pipe';
 import { OutputVariablesPipe } from 'src/app/pipes/output-variables.pipe';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { TextSuggestionInputComponent } from 'src/app/components/dynamic-input/text-suggestion-input/text-suggestion-input.component';
+import { AuthenticationsComponent } from 'src/app/pages/authentications/authentications.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
+import { AddAuthenticationComponent } from '../../components/authentication/add-authentication/add-authentication.component'
+import { KeyValuePipe } from 'src/app/pipes/key-value.pipe';
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { SnackbarComponent } from 'src/app/components/snackbar/snackbar.component';
+import { PasswordInputComponent } from 'src/app/components/dynamic-input/password-input/password-input.component';
+import { YesNoDialogComponent } from 'src/app/components/yes-no-dialog/yes-no-dialog.component';
+import { EditAuthenticationComponent } from 'src/app/components/authentication/edit-authentication/edit-authentication.component';
+import { ListAuthenticationsComponent } from 'src/app/components/authentication/list-authentication/list-authentications.component';
+import { FilterPipe } from 'src/app/pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -44,10 +57,19 @@ import { TextSuggestionInputComponent } from 'src/app/components/dynamic-input/t
     IntegerInputComponent,
     NumberInputComponent,
     TextInputComponent,
+    PasswordInputComponent,
     TextSuggestionInputComponent,
     SelectInputComponent,
     InputVariablesPipe,
     OutputVariablesPipe,
+    KeyValuePipe,
+    FilterPipe,
+    AuthenticationsComponent,
+    AddAuthenticationComponent,
+    EditAuthenticationComponent,
+    ListAuthenticationsComponent,
+    SnackbarComponent,
+    YesNoDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -67,6 +89,13 @@ import { TextSuggestionInputComponent } from 'src/app/components/dynamic-input/t
     MatSelectModule,
     MatCheckboxModule,
     MatAutocompleteModule,
+    MatTableModule,
+    MatMenuModule,
+    MatDialogModule,
+    MatSnackBarModule,
+  ],
+  providers: [
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 3500 } },
   ],
   exports: [
   ],

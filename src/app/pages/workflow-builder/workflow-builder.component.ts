@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { IntegrationTree } from 'src/app/models/integration-tree.model';
 import { IntegrationService } from 'src/app/services/integration.service';
 import { take } from 'rxjs/operators';
-import { Integration } from 'src/app/models/integration.model';
-import { IntegrationServiceModel } from 'src/app/models/integration-service.model';
-import { CdkDragDrop, CdkDragExit } from '@angular/cdk/drag-drop';
+import { Integration } from 'src/app/models/integration/integration.model';
+import { IntegrationServiceModel } from 'src/app/models/integration/integration-service.model';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { FlowService } from 'src/app/services/flow.service';
-import { Flow } from 'src/app/models/flow.model';
+import { Flow } from 'src/app/models/flow/flow.model';
+import { IntegrationTree } from 'src/app/models/integration/integration-tree.model';
+import { AddAuthenticationComponent } from 'src/app/components/authentication/add-authentication/add-authentication.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ListAuthenticationsComponent } from 'src/app/components/authentication/list-authentication/list-authentications.component';
 
 @Component({
   selector: 'app-workflow-builder',
@@ -18,24 +21,34 @@ export class WorkflowBuilderComponent implements OnInit {
   data!: IntegrationTree;
   visualizedData!: IntegrationTree;
   navigation!: [string[]];
-
   selected: Flow[] = [];
 
   constructor(
     private integrationService: IntegrationService,
     private flowService: FlowService,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
     this.navigation = [[]];
     this.data = new IntegrationTree;
     this.data.name = '';
-    this.integrationService.getAll().pipe(take(1)).subscribe(
+    this.integrationService.getAll$().pipe(take(1)).subscribe(
       res => {
         this.integrationsToData(res);
         this.visualizedData = this.data;
       }
     );
+  }
+
+  listAuthenticationsDialog(): void {
+    const dialogRef = this.dialog.open(ListAuthenticationsComponent, {
+      minWidth: '500px',
+    });
+  }
+
+  addAuthenticationDialog(): void {
+    const dialogRef = this.dialog.open(AddAuthenticationComponent);
   }
 
   openFolderByPath(path: string[]): void {
@@ -59,11 +72,9 @@ export class WorkflowBuilderComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<Flow[]>): void {
-    console.log(event.item.data);
-    console.log(event.item.data.id);
     if (event.previousContainer != event.container) {
 
-      this.flowService.get(event.item.data.id).pipe(take(1)).subscribe(
+      this.flowService.get$(event.item.data.id).pipe(take(1)).subscribe(
         res => {
           this.selected.push(res);
         }

@@ -4,7 +4,7 @@
         <h3>Inputs:</h3>
         <div class="flex">
             <div class="fixed-width" *ngFor="let variable of data.process.variables | inputVariables">
-                <app-dynamic-input-wrapper [variable]="variable" [parentForm]="myForm">
+                <app-dynamic-input-wrapper [data]="variableToDynamicInput(variable)" [parentForm]="myForm">
                 </app-dynamic-input-wrapper>
             </div>
         </div>
