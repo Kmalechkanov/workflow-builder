@@ -1,0 +1,52 @@
+{
+    "HOME_PAGE": {
+        "TEXT": "Home Works!"
+    },
+    "WORKFLOW-BUILDER": {
+        "AUTO-RESIZING": "Auto-resizing",
+        "SIDENAV": "sidenav"
+    },
+    "BUTTONS": {
+        "ADD": "Add",
+        "REMOVE": "Remove",
+        "DELETE": "Delete",
+        "LIST": "List",
+        "EDIT": "Edit",
+        "TOGGLE": "Toggle",
+        "CANCEL": "Cancel",
+        "SUBMIT": "Submit",
+        "YES": "Yes",
+        "NO": "No",
+        "LOGIN": "Log In"
+    },
+    "AUTHENTICATION-PAGE": {
+        "EDIT-SUCCESS": "Changes saved!",
+        "CREATE-SUCCESS": "Successfully created authentication!",
+        "ERROR-IN-USE": "This name is already used.",
+        "DELETE-DIALOG": {
+            "TITLE": "Delete authentication",
+            "TEXT": "Are you sure you want to pernamently delete this authentication?",
+            "SUCCESS": "Succesfully deleted authentication!",
+            "ERROR": "Error! Authnetication is not deleted."
+        }
+    },
+    "ENABLE": "Enable",
+    "DISABLE": "Disable",
+    "WORKFLOW": "Workflow",
+    "AUTHENTICATIONS": "Authentications",
+    "AUTHENTICATION": "Authentication",
+    "BUILDER": "Builder",
+    "HOME": "Home",
+    "NAME": "Name",
+    "DESCRIPTION": "Description",
+    "SERVICE": "Service",
+    "SERVICE-NAME": "Service name",
+    "ACTIONS": "Actions",
+    "ACTION": "Action",
+    "LOADING": "Loading",
+    "INPUTS": "Inputs",
+    "OUTPUTS": "Outputs",
+    "LOGIN": "Login",
+    "INVALID-LOGIN": "Invalid username or password",
+    "SEARCHBAR": "Search"
+}

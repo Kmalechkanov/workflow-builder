@@ -10,6 +10,7 @@ import { AuthschemaProperty } from 'src/app/models/authentication/authschema-pro
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarComponent } from '../../snackbar/snackbar.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-authentication',
@@ -28,6 +29,7 @@ export class AddAuthenticationComponent implements OnInit {
     public snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<AddAuthenticationComponent>,
     private authenticationService: AuthenticationService,
+    private translateService: TranslateService,
   ) {
     this.form = this.fb.group({
       name: ['', Validators.required],
@@ -65,7 +67,7 @@ export class AddAuthenticationComponent implements OnInit {
           ).pipe(take(1)).subscribe({
             next: () => {
               this.snackBar.openFromComponent(SnackbarComponent, {
-                data: "Successfully created authentication!"
+                data: this.translateService.instant("AUTHENTICATION-PAGE.CREATE-SUCCESS"),
               });
               this.dialogRef.close(true);
             },
@@ -75,7 +77,7 @@ export class AddAuthenticationComponent implements OnInit {
           });
         }
         else {
-          this.form.get('name')!.setErrors({ inUse: 'This name is already used.' });
+          this.form.get('name')!.setErrors({ inUse: this.translateService.instant("AUTHENTICATION-PAGE.ERROR-IN-USE") });
         }
       });
     }

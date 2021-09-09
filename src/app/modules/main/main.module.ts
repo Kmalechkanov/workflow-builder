@@ -43,6 +43,14 @@ import { YesNoDialogComponent } from 'src/app/components/yes-no-dialog/yes-no-di
 import { EditAuthenticationComponent } from 'src/app/components/authentication/edit-authentication/edit-authentication.component';
 import { ListAuthenticationsComponent } from 'src/app/components/authentication/list-authentication/list-authentications.component';
 import { FilterPipe } from 'src/app/pipes/filter.pipe';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { LanguageComponent } from 'src/app/components/language/language.component';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -70,6 +78,7 @@ import { FilterPipe } from 'src/app/pipes/filter.pipe';
     ListAuthenticationsComponent,
     SnackbarComponent,
     YesNoDialogComponent,
+    LanguageComponent,
   ],
   imports: [
     CommonModule,
@@ -93,6 +102,14 @@ import { FilterPipe } from 'src/app/pipes/filter.pipe';
     MatMenuModule,
     MatDialogModule,
     MatSnackBarModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      },
+      defaultLanguage: 'en'
+    }),
   ],
   providers: [
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 3500 } },

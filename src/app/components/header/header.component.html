@@ -1,10 +1,11 @@
 <mat-toolbar class="header" color="primary">
-    <a mat-button [routerLink]="['/']">Home</a>
-    <a mat-button [routerLink]="['/workflow-builder']">Builder</a>
-    <a mat-button [routerLink]="['/authentications']">Authentications</a>
+    <a mat-button [routerLink]="['/']">{{ "HOME" | translate }}</a>
+    <a mat-button [routerLink]="['/workflow-builder']">{{ "BUILDER" | translate }}</a>
+    <a mat-button [routerLink]="['/authentications']">{{ "AUTHENTICATIONS" | translate }}</a>
 
     <span class="separate"></span>
 
+    <app-language></app-language>
     <span>
         {{ userEmail }} 
     </span>

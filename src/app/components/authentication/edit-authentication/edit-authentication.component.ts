@@ -9,6 +9,7 @@ import { AuthschemaProperty } from 'src/app/models/authentication/authschema-pro
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarComponent } from '../../snackbar/snackbar.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-edit-authentication',
@@ -20,12 +21,14 @@ export class EditAuthenticationComponent implements OnInit {
   serviceForm!: FormGroup;
   properties!: [string, AuthschemaProperty][];
   private formControl: FormControl = new FormControl();
+  private originalAuthName!: string;
 
   constructor(
     private fb: FormBuilder,
     public snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<EditAuthenticationComponent>,
     private authenticationService: AuthenticationService,
+    private translateService: TranslateService,
     @Inject(MAT_DIALOG_DATA) public data: { id: number; },
   ) {
     this.form = this.fb.group({
@@ -41,6 +44,7 @@ export class EditAuthenticationComponent implements OnInit {
       this.form.get('name')?.setValue(res.name);
       this.form.get('description')?.setValue(res.description);
       this.form.get('serviceName')?.setValue(res.serviceName);
+      this.originalAuthName = res.name;
 
       this.authenticationService.getSchema$(res.serviceName).pipe(take(1)).subscribe(res => {
         this.properties = Object.entries(res.schema.properties);
@@ -55,29 +59,18 @@ export class EditAuthenticationComponent implements OnInit {
     this.serviceForm.markAllAsTouched();
 
     if (this.form.valid && this.form.errors == null) {
-      this.authenticationService.isUsed$(this.form.get('name')!.value).subscribe((res) => {
-        if (!res) {
-          this.authenticationService.edit$(
-            this.data.id,
-            this.form.get('name')!.value,
-            this.form.get('description')!.value,
-            this.serviceForm.value,
-          ).pipe(take(1)).subscribe({
-            next: () => {
-              this.snackBar.openFromComponent(SnackbarComponent, {
-                data: "Changes saved!"
-              });
-              this.dialogRef.close(true);
-            },
-            error: () => {
-              this.form.setErrors({ 'incorrect': true });
-            }
-          });
-        }
-        else {
-          this.form.get('name')!.setErrors({ inUse: 'This name is already used.' });
-        }
-      });
+      if (this.form.get('name')!.value == this.originalAuthName) {
+        this.editService();
+      } else {
+        this.authenticationService.isUsed$(this.form.get('name')!.value).subscribe((res) => {
+          if (!res) {
+            this.editService();
+          }
+          else {
+            this.form.get('name')!.setErrors({ inUse: this.translateService.instant("AUTHENTICATION-PAGE.ERROR-IN-USE") });
+          }
+        });
+      }
     }
   }
 
@@ -93,6 +86,25 @@ export class EditAuthenticationComponent implements OnInit {
       enum: property.enum,
       format: property.format,
       default: property.default,
+    });
+  }
+
+  private editService(): void {
+    this.authenticationService.edit$(
+      this.data.id,
+      this.form.get('name')!.value,
+      this.form.get('description')!.value,
+      this.serviceForm.value,
+    ).pipe(take(1)).subscribe({
+      next: () => {
+        this.snackBar.openFromComponent(SnackbarComponent, {
+          data: this.translateService.instant("AUTHENTICATION-PAGE.EDIT-SUCCESS"),
+        });
+        this.dialogRef.close(true);
+      },
+      error: () => {
+        this.form.setErrors({ 'incorrect': true });
+      }
     });
   }
 }
