@@ -1,9 +1,9 @@
 <form action="" [formGroup]="form">
-    <h1>Add authentication</h1>
+    <h1>{{ "BUTTONS.ADD" | translate }} {{ "AUTHENTICATION" | translate }}</h1>
 
     <div>
         <mat-form-field appearance="fill">
-            <mat-label>Name</mat-label>
+            <mat-label>{{ "NAME" | translate }}</mat-label>
             <input matInput placeholder="Placeholder" type="text" formControlName="name">
             <mat-error *ngIf="form.get('name')!.hasError('inUse')">{{form.get('name')!.getError('inUse')}}</mat-error>
         </mat-form-field>
@@ -11,14 +11,14 @@
 
     <div>
         <mat-form-field appearance="fill">
-            <mat-label>Description</mat-label>
+            <mat-label>{{ "DESCRIPTION" | translate }}</mat-label>
             <textarea matInput placeholder="Placeholder" formControlName="description"></textarea>
         </mat-form-field>
     </div>
 
     <div>
         <mat-form-field appearance="fill">
-            <mat-label>Service</mat-label>
+            <mat-label>{{ "SERVICE" | translate }}</mat-label>
             <mat-select formControlName="service">
                 <mat-option *ngFor="let service of services" [value]="service">
                     {{service.serviceName}}
@@ -32,6 +32,6 @@
             [parentForm]="serviceForm!">
         </app-dynamic-input-wrapper>
     </div>
-    <button mat-button (click)="onCancel()">Cancel</button>
-    <button mat-button (click)="onSubmit()" color="primary" cdkFocusInitial>Submit</button>
+    <button mat-button (click)="onCancel()">{{ "BUTTONS.CANCEL" | translate }}</button>
+    <button mat-button (click)="onSubmit()" color="primary" cdkFocusInitial>{{ "BUTTONS.SUBMIT" | translate }}</button>
 </form>

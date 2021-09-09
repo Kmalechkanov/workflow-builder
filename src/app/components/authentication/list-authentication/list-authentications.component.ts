@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 import { EditAuthenticationComponent } from 'src/app/components/authentication/edit-authentication/edit-authentication.component';
 import { SnackbarComponent } from 'src/app/components/snackbar/snackbar.component';
@@ -27,6 +28,7 @@ export class ListAuthenticationsComponent implements OnInit {
     public snackBar: MatSnackBar,
     private dialog: MatDialog,
     private fb: FormBuilder,
+    private translateService: TranslateService,
   ) { }
 
   ngOnInit(): void {
@@ -54,11 +56,13 @@ export class ListAuthenticationsComponent implements OnInit {
   }
 
   deleteDialog(id: number): void {
+    const path = "AUTHENTICATION-PAGE.DELETE-DIALOG.";
+
     const dialogRef = this.dialog.open(YesNoDialogComponent, {
       width: '300px',
       data: {
-        title: 'Delete authentications',
-        text: 'Are you sure you want to pernamently delete this authentication',
+        title: this.translateService.instant(path + "TITLE"),
+        text: this.translateService.instant(path + "TEXT"),
         color: 'warn',
       }
     });
@@ -68,14 +72,14 @@ export class ListAuthenticationsComponent implements OnInit {
         this.authenticationService.delete$(id).pipe(take(1)).subscribe({
           next: () => {
             this.snackBar.openFromComponent(SnackbarComponent, {
-              data: "Succesfully deleted authentication!"
+              data: this.translateService.instant(path + "SUCCESS"),
             });
 
             this.getAuthentications();
           },
           error: () => {
             this.snackBar.openFromComponent(SnackbarComponent, {
-              data: "Error! Authnetication is not deleted."
+              data: this.translateService.instant(path + "ERROR"),
             });
           }
         });

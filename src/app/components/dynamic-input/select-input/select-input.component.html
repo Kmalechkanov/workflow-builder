@@ -1,6 +1,6 @@
 <ng-container *ngIf="open == true; else elseBlock">
-<mat-form-field appearance="fill">
-    <mat-label>{{data.displayName ? data.displayName : data.name}}</mat-label>
+    <mat-form-field appearance="fill">
+        <mat-label>{{data.displayName ? data.displayName : data.name}}</mat-label>
         <div [formGroup]="parentForm">
             <mat-select [formControlName]="data.name">
                 <mat-option *ngFor="let value of options" [value]="value">
@@ -11,5 +11,5 @@
     </mat-form-field>
 </ng-container>
 <ng-template #elseBlock>
-    <p>Loading...</p>
+    <p>{{ "LOADING" | translate }}...</p>
 </ng-template>

@@ -34,9 +34,9 @@
             </div>
         </div>
 
-        <p>Toggle Auto-resizing</p>
+        <p>{{ "BUTTONS.TOGGLE" | translate }} {{ "WORKFLOW-BUILDER.AUTO-RESIZING" | translate }}</p>
         <button mat-raised-button (click)="toggleResize = !toggleResize">
-            {{ toggleResize ? 'Enable' : 'Disable' }}
+            {{ toggleResize ? ('ENABLE' | translate ) : 'DISABLE' | translate }}
         </button>
 
     </mat-drawer>
@@ -44,25 +44,25 @@
     <div class="sidenav-content content">
         <div class="flex">
             <h2>
-                Workflow
+                {{ "WORKFLOW" | translate }}
             </h2>
             <div>
                 <button mat-button [matMenuTriggerFor]="menu">
-                    <span>Authentications</span>
+                    <span>{{ "AUTHENTICATIONS" | translate }}</span>
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item (click)=addAuthenticationDialog()>
                         <mat-icon>add</mat-icon>
-                        <span>Add</span>
+                        <span>{{ "BUTTONS.ADD" | translate }}</span>
                     </button>
                     <button mat-menu-item (click)=listAuthenticationsDialog()>
                         <mat-icon>list</mat-icon>
-                        <span>List</span>
+                        <span>{{ "BUTTONS.LIST" | translate }}</span>
                     </button>
                 </mat-menu>
                 <button mat-button (click)="drawer.toggle()">
-                    Toggle sidenav
+                    {{ "BUTTONS.TOGGLE" | translate }} {{ "WORKFLOW-BUILDER.SIDENAV" | translate }}
                 </button>
             </div>
         </div>
